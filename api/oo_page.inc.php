@@ -19,6 +19,9 @@ class HTMLPage {
 
     private $body_content = ""; //Store the body content
 
-
+    //Constructor
+    function __construct($title) {
+        $this->head_title = $title;
+    }
 
 }
