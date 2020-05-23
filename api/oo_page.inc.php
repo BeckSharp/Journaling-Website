@@ -24,4 +24,64 @@ class HTMLPage {
         $this->head_title = $title;
     }
 
+    //Setters
+    public function setScriptFileArray($file)
+    {
+        $this->arr_js[] = $file;
+    }
+
+    public function setCSSFileArray($file)
+    {
+        $this->arr_css[] = $file;
+    }
+
+    public function setMetaElementArray($metakey, $metavalue)
+    {
+        $this->arr_meta[$metakey] = $metavalue;
+    }
+
+    public function setPageTitle($title)
+    {
+        $this->head_title = $title;
+    }
+
+    public function setCustomHead($headhtml)
+    {
+        $this->head_html = $headhtml;
+    }
+    
+    public function setDirCSS($csspath)
+    {
+        $this->dir_css = $csspath;
+    }
+    
+    public function setDirJS($jspath)
+    {
+        $this->dir_js = $jspath;
+    }
+    
+    public function setDirImages($imgpath)
+    {
+        $this->dir_img = $imgpath;
+    }
+    
+    public function setDirFonts($fontpath)
+    {
+        $this->dir_fonts = $fontpath;
+    }
+    
+    public function setDirData($datapath)
+    {
+        $this->dir_data = $datapath;
+    }
+    
+    public function setBodyContent($content)
+    {
+        $this->body_content = $content;
+    }
+    
+    public function setFavIcon($piconfile)
+    {
+        $this->head_favicon = $piconfile;
+    }
 }
