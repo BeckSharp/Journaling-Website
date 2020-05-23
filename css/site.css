@@ -1,0 +1,68 @@
+/* Spacing out content */
+body {
+	padding-top: 80px;
+	padding-bottom: 20px;
+}
+
+.header, .details, .footer {
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.ni-list {
+	margin-left: 15px;
+}
+
+.art-summary {
+	padding: 10px;
+	font-size: 1.5em;
+}
+
+.art-content {
+	padding: 10px;
+	font-size: 1.25em;
+}
+
+.header {
+	padding-bottom: 20px;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.header h3 {
+	margin-top: 0;
+	margin-bottom: 0;
+	line-height: 40px;
+}
+
+.footer {
+	padding-top: 19px;
+	color: #777;
+	border-top: 1px solid #e5e5e5;
+}
+
+@media ( min-width : 800px) {
+	.container {
+		max-width: 1200px;
+	}
+}
+
+.container-narrow>hr {
+	margin: 30px 0;
+}
+
+.carousel-caption h1 {
+	color: #fff;
+}
+
+.lead {
+	background: #000;
+	color: #fff;
+}
+
+.details {
+	margin: 40px 0;
+}
+
+.details p+h4 {
+	margin-top: 28px;
+}
