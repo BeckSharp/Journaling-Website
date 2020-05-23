@@ -68,7 +68,15 @@ FOOTER;
 
     private function setMasterContent() {
         $masterpage = <<<MASTER
-
+<div class="jumbotron">
+    {$this->_dynamic_1}
+</div>
+<div class="row details">
+    {$this->_dynamic_2}
+</div>
+<footer class="footer">
+    {$this->_dynamic_3}
+</footer>
 MASTER;
         $this->_htmlpage->setBodyContent($masterpage);
     }
