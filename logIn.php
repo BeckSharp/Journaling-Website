@@ -11,7 +11,9 @@ PAGE;
 }
 
 //BUSINESS LOGIC
-appProfileRegisteredCheck();
+if(!appProfileRegisteredCheck()) {
+    appRedirect("signUp.php");
+}
 
 $pagetitle = "Log In";
 $pagelead  = "";
