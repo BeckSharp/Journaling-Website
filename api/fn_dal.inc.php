@@ -33,10 +33,20 @@ function jsonRowCount($file) {
 }
 
 //PROFILES.JSON FUNCTIONS
-function jsonLoadProfile ($id = 1) {
+function jsonLoadProfile($id = 1) {
     $user = new BLLProfile();
     $user->fromArray(jsonOne("data/json/profile.json", $id));
     return $user;
 }
 
 //ENTRIES.JSON FUNCTIONS
+function jsonLoadOneJournalEntry($id) {
+    $entry = new BLLJournalEntry();
+    $entry->fromArray(jsonOne("data/json/entries.json", $id));
+    return $entry;
+}
+
+function jsonLoadAllJournalEntries() {
+    $array = jsonAll("data/json/entries.json");
+    return array_map(function($data){ $entry = new BLLConsumerInformation(); $entry->fromArray($data); return $entry; }, $array);
+}
