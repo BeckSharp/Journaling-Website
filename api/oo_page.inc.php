@@ -222,7 +222,7 @@ BODY;
         foreach($pathjs as $jsfile)
         {
         $jsmarkup = <<<SCRIPT
-<script src="{$jsfile}"></script>
+<script src="{$jsfile}"></script>\n\t
 SCRIPT;
         $html .= $jsmarkup;
         }
