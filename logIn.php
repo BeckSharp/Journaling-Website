@@ -11,6 +11,8 @@ PAGE;
 }
 
 //BUSINESS LOGIC
+appProfileRegisteredCheck();
+
 $pagetitle = "Log In";
 $pagelead  = "";
 $pagecontent = createPage();
