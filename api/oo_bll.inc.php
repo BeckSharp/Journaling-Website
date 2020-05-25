@@ -1,6 +1,6 @@
 <?php
 //OBJECT CLASSES
-class Profile {
+class BLLProfile {
     //FIELDS
     public $username;
     public $password;
@@ -15,7 +15,7 @@ class Profile {
     }
 }
 
-class JournalEntry {
+class BLLJournalEntry {
     //FIELDS
     public $username;
     public $date;
