@@ -50,3 +50,4 @@ function jsonLoadAllJournalEntries() {
     $array = jsonAll("data/json/entries.json");
     return array_map(function($data){ $entry = new BLLConsumerInformation(); $entry->fromArray($data); return $entry; }, $array);
 }
+?>
