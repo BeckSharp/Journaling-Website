@@ -99,7 +99,7 @@ FOOTER;
     <footer class="footer">
         {$this->_dynamic_3}
     </footer>
-</div>
+    </div>
 MASTER;
         $this->_htmlpage->setBodyContent($masterpage);
     }
