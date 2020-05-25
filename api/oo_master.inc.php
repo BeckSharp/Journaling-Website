@@ -68,15 +68,37 @@ FOOTER;
 
     private function setMasterContent() {
         $masterpage = <<<MASTER
-<div class="jumbotron">
-    {$this->_dynamic_1}
+<div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item active nav-pad"><a href="index.php">Journal</a></li>
+                    <li class="nav-item active nav-pad"><a href="journalEntry.php">New Entry</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item active nav-pad"><a href="settings.php">Settings</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="jumbotron">
+        {$this->_dynamic_1}
+    </div>
+    <div class="row details">
+        {$this->_dynamic_2}
+    </div>
+    <footer class="footer">
+        {$this->_dynamic_3}
+    </footer>
 </div>
-<div class="row details">
-    {$this->_dynamic_2}
-</div>
-<footer class="footer">
-    {$this->_dynamic_3}
-</footer>
 MASTER;
         $this->_htmlpage->setBodyContent($masterpage);
     }
