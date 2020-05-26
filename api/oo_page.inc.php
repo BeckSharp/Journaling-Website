@@ -127,9 +127,7 @@ class HTMLPage {
         $markup = <<<HTML
 <!DOCTYPE html>
 <html lang="en">
-<!--HEAD ELEMENT -->
 {$this->createHTML_Head()}
-<!--BODY ELEMENT -->
 {$this->createHTML_Body()}
 </html>
 HTML;
@@ -193,8 +191,7 @@ FAVICON;
         foreach($pathcss as $cssfile)
         {
             $cssmarkup = <<<SCRIPT
-<link href="{$cssfile}" rel="stylesheet">
-
+<link href="{$cssfile}" rel="stylesheet">\n\t
 SCRIPT;
             $html .= $cssmarkup;
         }
