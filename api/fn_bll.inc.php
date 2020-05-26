@@ -12,6 +12,11 @@ function appRedirect($address) {
     header("Location: {$address}");
 }
 
+//FUNCTION TO SELF-SUMIT DATA TO PAGE
+function appFormSelfSubmit() {
+    return htmlspecialchars($_SERVER['PHP_SELF']);
+}
+
 //FUNCTION TO DETERMINE FORM METHOD
 function appFormMethod($default = true) {
     return $default ? "POST" : "GET";
