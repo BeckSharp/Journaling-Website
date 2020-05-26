@@ -17,10 +17,16 @@ function appFormSelfSubmit() {
     return htmlspecialchars($_SERVER['PHP_SELF']);
 }
 
-//FUNCTION TO DETERMINE FORM METHOD
+//FUNCTION TO SET FORM METHOD
 function appFormMethod($default = true) {
     return $default ? "POST" : "GET";
 }
+
+//FUNCTION TO RETRIEVE FORM METHOD
+function appFormMethodIsPost() {
+    return strtolower($_SERVER['REQUEST_METHOD']) == 'post';
+}
+
 
 //FUNCTION TO REPLACE ENTITIES FOR TAGS IN STRING
 function appReplaceEntityTags($data) {
