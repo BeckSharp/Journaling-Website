@@ -12,6 +12,9 @@ if (appProfileRegisteredCheck()) {
 
 //REGISTERING ACCOUNT LOGIC
 if (isDataValid($username, $password, $confirmation)) {
+    $username = appReplaceEntityTags($username);
+    $password = appReplaceEntityTags($password);
+    $confirmation = appReplaceEntityTags($confirmation);
     //ENCRYPT USERNAME
     //HASH & SALT PASSWORD
     //WRITE DATA TO JSON
