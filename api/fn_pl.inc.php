@@ -2,8 +2,10 @@
 //RENDER FORM FUNCTIONS
 function renderFormSignUp(){
     $method = appFormMethod();
+    $action = appFormSelfSubmit();
+
     $form = <<<FORM
-<form class="form-horizontal" method="{$method}" action="app_create_profile.php">
+<form class="form-horizontal" method="{$method}" action="{$action}">
     <fieldset>
         <!-- Form Name -->
         <legend>Sign Up Form</legend>
