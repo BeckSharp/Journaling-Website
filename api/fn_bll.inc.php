@@ -18,7 +18,7 @@ function appFormMethod($default = true) {
 }
 
 //FUNCTION TO REPLACE ENTITIES FOR TAGS IN STRING
-function appReplaceEntities($data) {
+function appReplaceEntityTags($data) {
     $data = str_replace("<", "&lt;", $data);
     $data = str_replace(">", "&gt;", $data);
     return $data;
