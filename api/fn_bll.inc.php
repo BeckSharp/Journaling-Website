@@ -16,3 +16,10 @@ function appRedirect($address) {
 function appFormMethod($default = true) {
     return $default ? "POST" : "GET";
 }
+
+//FUNCTION TO REPLACE ENTITIES FOR TAGS IN STRING
+function appReplaceEntities($data) {
+    $data = str_replace("<", "&lt;", $data);
+    $data = str_replace(">", "&gt;", $data);
+    return $data;
+}
