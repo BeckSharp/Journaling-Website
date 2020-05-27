@@ -49,13 +49,13 @@ class BLLEncryption {
     }
 
     public function encryptData() {
-        return openssl_encrypt($this->data, $this->$ciphering, $this->key, 
-                                $this->options, $initializationVector);
+        return openssl_encrypt($this->data, $this->ciphering, $this->key, 
+                                $this->options, $this->initializationVector);
     }
 
     public function decryptData() {
-        return openssl_decrypt($this->data, $this->$ciphering, $this->key, 
-                                $this->options, $initializationVector);
+        return openssl_decrypt($this->data, $this->ciphering, $this->key, 
+                                $this->options, $this->initializationVector);
     }
 }
 ?>
