@@ -21,7 +21,7 @@ if(appProfileRegisteredCheck()) {
     appRedirect("logIn.php");
 }
 
-if (appFormMethodIsPost()){
+if (appFormMethodIsPost()) {
     //RETRIEVING POSTED DATA
     $username = $_POST["username"] ?? "";
     $password = $_POST["password"] ?? "";
