@@ -34,3 +34,8 @@ function appReplaceEntityTags($data) {
     $data = str_replace(">", "&gt;", $data);
     return $data;
 }
+
+//FUNCTION TO HASH DATA 
+function appHashData($data) {
+    return password_hash($data, PASSWORD_BCRYPT);
+}
