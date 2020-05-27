@@ -77,6 +77,7 @@ $page->renderPage();
 function isDataValid($username, $password, $confirmation) {
     if (!isDataNotEmpty($username, $password, $confirmation)) { return false; }
     if (!isPasswordConfirmed($password, $confirmation)) { return false; }
+    if (appProfileRegisteredCheck()) { return false; }
     return true;
 }
 
