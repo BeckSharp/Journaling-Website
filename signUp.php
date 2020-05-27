@@ -5,7 +5,6 @@ include("api/api.inc.php");
 //PAGE GENERATION LOGIC
 function createPage() {
 
-    $errorMessage = $_GET["data"] ?? "";
     $errorEmpty = $_GET["empty"] ?? "";
     $errorUnconfirmed = $_GET["unconfirmed"] ?? "";
 
