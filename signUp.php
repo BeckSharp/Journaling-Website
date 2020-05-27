@@ -5,7 +5,11 @@ include("api/api.inc.php");
 //PAGE GENERATION LOGIC
 function createPage() {
 
-    $form = renderFormSignUp();
+    $errorMessage = $_GET["data"] ?? "";
+    $errorEmpty = $_GET["empty"] ?? "";
+    $errorUnconfirmed = $_GET["unconfirmed"] ?? "";
+
+    $form = renderFormSignUp($errorEmpty, $errorUnconfirmed);
 
     $content = <<<PAGE
 {$form}
@@ -42,11 +46,15 @@ if (appFormMethodIsPost()){
         $profile->password = $hashedPassword;
         $saveData = json_encode($profile).PHP_EOL;
         file_put_contents("data/json/profile.json", $saveData);
-        
+
         //REDIRECT USER TO logIn.php
         appRedirect("logIn.php");
     } else {
         //REDIRECT TO signUp.php WITH ERROR MESSAGES
+        $url = "signUp.php?data=invalid";
+        if (!isDataNotEmpty($username, $password, $confirmation)) { $url .= "&empty=true"; }
+        if (!isPasswordConfirmed($password, $confirmation)) { $url .= "&unconfirmed=true"; }
+        appRedirect($url);
     }
 } else {
     $pagecontent = createPage();
