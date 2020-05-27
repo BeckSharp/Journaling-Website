@@ -62,3 +62,50 @@ function renderFormSignUp($errorEmpty, $errorUnconfirmed) {
 FORM;
     return $form;
 }
+
+function renderFormLogIn($errorData) {
+    $errorDataMessage = "";
+
+    if ($errorData == "true") { $errorDataMessage = "<p class=\"text-center\">The credentials you where incorrect.</p>"; }
+
+    $method = appFormMethod();
+    $action = appFormSelfSubmit();
+
+    $form = <<<FORM
+<form class="form-horizontal" method="{$method}" action="{$action}">
+    <fieldset>
+        <!-- Form Name -->
+        <legend>Log In Form</legend>
+
+        {$errorDataMessage}
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="username">Username</label>
+            <div class="col-md-4">
+                <input id="username" name="username" type="text" 
+                placeholder="Enter your desired username here" class="form-control input-md" required>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="password">Password</label>
+            <div class="col-md-4">
+                <input id="password" name="password" type="password" 
+                placeholder="Enter your password here" class="form-control input-md" required>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+          <div class="col-md-4">
+            <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Log In</button>
+          </div>
+        </div>
+
+    </fieldset>
+</form>
+FORM;
+    return $form;
+}
