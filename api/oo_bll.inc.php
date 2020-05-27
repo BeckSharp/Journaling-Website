@@ -53,8 +53,8 @@ class BLLEncryption {
                                 $this->options, $this->initializationVector);
     }
 
-    public function decryptData() {
-        return openssl_decrypt($this->data, $this->ciphering, $this->key, 
+    public function decryptData($decryptionData) {
+        return openssl_decrypt($decryptionData, $this->ciphering, $this->key, 
                                 $this->options, $this->initializationVector);
     }
 }
