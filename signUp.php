@@ -31,11 +31,20 @@ if (appFormMethodIsPost()){
 
     if (isDataValid($username, $password, $confirmation)) {
         //ENCRYPT USERNAME
-
+        $encryption = new BLLEncryption($username, $username);
+        $encryptedUsername = $encryption->encryptData();
         //HASH & SALT PASSWORD
-        $pagecontent = appHashData($password);
+        $hashedPassword= appHashData($password);
+
         //WRITE DATA TO JSON
+        $profile = new BLLProfile();
+        $profile->username = $encryptedUsername;
+        $profile->password = $hashedPassword;
+        $saveData = json_encode($profile).PHP_EOL;
+        file_put_contents("data/json/profile.json", $saveData);
         
+        //REDIRECT USER TO logIn.php
+        appRedirect("logIn.php");
     } else {
         //REDIRECT TO signUp.php WITH ERROR MESSAGES
     }
