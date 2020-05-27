@@ -1,6 +1,14 @@
 <?php
 //RENDER FORM FUNCTIONS
-function renderFormSignUp(){
+function renderFormSignUp($errorEmpty, $errorUnconfirmed) {
+
+    $errorEmptyMessage = "";
+    $errorUnconfirmedMessage = "";
+
+    if ($errorEmpty == "true") { $errorEmptyMessage =  "<p class=\"text-center\">Please enter data in all text fields.</p>"; }
+
+    if ($errorUnconfirmed == "true") { $errorUnconfirmedMessage = "<p class=\"text-center\">Please enter matching passwords.</p>";}
+
     $method = appFormMethod();
     $action = appFormSelfSubmit();
 
@@ -9,6 +17,8 @@ function renderFormSignUp(){
     <fieldset>
         <!-- Form Name -->
         <legend>Sign Up Form</legend>
+
+        {$errorEmptyMessage}
 
         <!-- Text input-->
         <div class="form-group">
@@ -36,6 +46,8 @@ function renderFormSignUp(){
                 placeholder="Confirm your password here" class="form-control input-md" required>
             </div>
         </div>
+
+        {$errorUnconfirmedMessage}
 
         <!-- Button -->
         <div class="form-group">
