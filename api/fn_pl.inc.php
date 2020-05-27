@@ -66,7 +66,7 @@ FORM;
 function renderFormLogIn($errorData) {
     $errorDataMessage = "";
 
-    if ($errorData == "true") { $errorDataMessage = "<p class=\"text-center\">The credentials you where incorrect.</p>"; }
+    if ($errorData == "true") { $errorDataMessage = "<p class=\"text-center\">The credentials you entered where incorrect.</p>"; }
 
     $method = appFormMethod();
     $action = appFormSelfSubmit();
