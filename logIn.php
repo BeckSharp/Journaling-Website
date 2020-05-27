@@ -4,8 +4,12 @@ include("api/api.inc.php");
 
 //PAGE GENERATION LOGIC
 function createPage() {
-    $content = <<<PAGE
+    $errorData = $_GET["invalid"] ?? "";
 
+    $form = renderFormLogIn($errorData);
+
+    $content = <<<PAGE
+{$form}
 PAGE;
     return $content;
 }
