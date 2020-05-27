@@ -31,8 +31,11 @@ if (appFormMethodIsPost()){
 
     if (isDataValid($username, $password, $confirmation)) {
         //ENCRYPT USERNAME
+
         //HASH & SALT PASSWORD
+        $pagecontent = appHashData($password);
         //WRITE DATA TO JSON
+        
     } else {
         //REDIRECT TO signUp.php WITH ERROR MESSAGES
     }
