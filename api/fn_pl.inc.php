@@ -99,7 +99,7 @@ function renderFormLogIn($errorData) {
 
         <!-- Button -->
         <div class="form-group">
-          <div class="col-md-4">
+          <div class="col-md-4 col-md-offset-4">
             <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Log In</button>
           </div>
         </div>
