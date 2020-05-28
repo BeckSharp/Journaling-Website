@@ -39,3 +39,30 @@ function appReplaceEntityTags($data) {
 function appHashData($data) {
     return password_hash($data, PASSWORD_BCRYPT);
 }
+
+//FUNCTION TO ENCRYPT DATA FOR STORAGE IN SESSION
+function appEncryptSessionData($data) {
+    $key = "SessionData";
+    $encryption = new BLLEncryption($data, $key);
+    return $encryption->encryptData();
+}
+
+//FUNCTION TO DECRYPT DATA FROM SESSION STORAGE
+function appDecryptSessionData($data) {
+    $key = "SessionData";
+    $decryption = new BLLEncryption($data, $key);
+    return $decryption->decryptData($data);
+}
+
+//FUNCTION TO SET SESSSION LOG IN TOKENS
+function appSetSessionLogInTokens($username) {
+    $username = appEncryptSessionData($data); 
+    $_SESSION["username"] = $username;
+    $_SESSION["entered"] = true;
+}
+
+//FUNCTION TO CHECK IF A SESSION IS ACTIVE
+function appSessionIsSet() {
+    if ($_SESSION["entered"] != true) { return false; }
+    return true;
+}
