@@ -66,3 +66,9 @@ function appSessionIsSet() {
     if (!isset($_SESSION["entered"])) { return false; }
     return true;
 }
+
+//FUNCTION TO DESTROY USER SESSION
+function appSessionDestroy() {
+    session_unset();
+    session_destroy();
+}
