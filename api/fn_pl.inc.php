@@ -67,7 +67,7 @@ function renderFormLogIn($errorData, $signUpSuccess) {
     $signUpSuccessMessage = "";
 
     if ($errorData == "true") { $errorDataMessage = file_get_contents("data\static\log_in_error_data.html"); }
-    if ($signUpSuccess == "true") { $signUpSuccessMessage = "data\static\sign_up_success.html"; }
+    if ($signUpSuccess == "true") { $signUpSuccessMessage = file_get_contents("data\static\sign_up_success.html"); }
 
     $method = appFormMethod();
     $action = appFormSelfSubmit();
