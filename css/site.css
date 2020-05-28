@@ -66,3 +66,8 @@ body {
 .details p+h4 {
 	margin-top: 28px;
 }
+
+.nav-pad {
+	margin-left: 2px;
+	text-align: center;
+}
