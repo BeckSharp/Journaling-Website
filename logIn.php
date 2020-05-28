@@ -16,8 +16,13 @@ PAGE;
 }
 
 //BUSINESS LOGIC
-if(!appProfileRegisteredCheck()) {
+if (!appProfileRegisteredCheck()) {
     appRedirect("signUp.php");
+}
+
+session_start();
+if (appSessionIsSet()) {
+    appRedirect("index.php");
 }
 
 if (appFormMethodIsPost()) {
@@ -31,6 +36,8 @@ if (appFormMethodIsPost()) {
 
     if (isLogInValid($username, $password)) {
         //SET SESSION TOKENS
+        appSetSessionLogInTokens($username);
+
         //REDIRECT USER TO index.php
         appRedirect("index.php");
     } else {
