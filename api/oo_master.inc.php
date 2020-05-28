@@ -67,6 +67,12 @@ FOOTER;
     }
 
     private function setMasterContent() {
+
+        $logOutLink = "";
+        if (appSessionIsSet()) {
+            $logOutLink = "<li class=\"nav-item active nav-pad\"><a href=\"app_exit.php?action=exit\">Log Out</a></li>";
+        }
+
         $masterpage = <<<MASTER
 <div class="container">
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -86,6 +92,7 @@ FOOTER;
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item active nav-pad"><a href="settings.php">Settings</a></li>
+                    {$logOutLink}
                 </ul>
             </div>
         </div>
