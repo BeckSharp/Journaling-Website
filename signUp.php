@@ -21,6 +21,11 @@ if(appProfileRegisteredCheck()) {
     appRedirect("logIn.php");
 }
 
+session_start();
+if (appSessionIsSet()) {
+    appRedirect("index.php");
+}
+
 if (appFormMethodIsPost()) {
     //RETRIEVING POSTED DATA
     $username = $_POST["username"] ?? "";

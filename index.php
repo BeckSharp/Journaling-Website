@@ -11,6 +11,11 @@ PAGE;
 }
 
 //BUSINESS LOGIC
+session_start();
+if (!appSessionIsSet()) {
+    appRedirect("logIn.php");
+}
+
 $pagetitle = "Home Page";
 $pagelead  = "";
 $pagecontent = createPage();
