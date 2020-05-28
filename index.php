@@ -4,8 +4,18 @@ include("api/api.inc.php");
 
 //PAGE GENERATION LOGIC
 function createPage() {
+
+    $journalData = jsonLoadAllJournalEntries();
+    $journalOutput = "";
+
+    if (count($journalData) == 0) {
+        $journalOutput = file_get_contents("data/static/index_error_no_data.html");
+    } else {
+        //RENDER JOURNAL DATA PRESENTATION
+    }
+
     $content = <<<PAGE
-<h1>Hello World from generated page</h1>
+{$journalOutput}
 PAGE;
     return $content;
 }
