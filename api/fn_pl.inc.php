@@ -63,10 +63,12 @@ FORM;
     return $form;
 }
 
-function renderFormLogIn($errorData) {
+function renderFormLogIn($errorData, $signUpSuccess) {
     $errorDataMessage = "";
+    $signUpSuccessMessage = "";
 
     if ($errorData == "true") { $errorDataMessage = "<p class=\"text-center\">The credentials you entered where incorrect.</p>"; }
+    if ($signUpSuccess == "true") { $signUpSuccessMessage = "<h1 class=\"text-center\">Congratulations your account has been registered!</h1>"; }
 
     $method = appFormMethod();
     $action = appFormSelfSubmit();
@@ -77,6 +79,7 @@ function renderFormLogIn($errorData) {
         <!-- Form Name -->
         <legend>Log In Form</legend>
 
+        {$signUpSuccessMessage}
         {$errorDataMessage}
 
         <!-- Text input-->

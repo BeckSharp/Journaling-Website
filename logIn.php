@@ -5,8 +5,9 @@ include("api/api.inc.php");
 //PAGE GENERATION LOGIC
 function createPage() {
     $errorData = $_GET["invalid"] ?? "";
+    $signUpSuccess = $_GET["registered"] ?? "";
 
-    $form = renderFormLogIn($errorData);
+    $form = renderFormLogIn($errorData, $signUpSuccess);
 
     $content = <<<PAGE
 {$form}

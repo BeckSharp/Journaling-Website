@@ -47,7 +47,7 @@ if (appFormMethodIsPost()) {
         file_put_contents("data/json/profile.json", $saveData);
 
         //REDIRECT USER TO logIn.php
-        appRedirect("logIn.php");
+        appRedirect("logIn.php?registered=true");
     } else {
         //REDIRECT TO signUp.php WITH ERROR MESSAGES
         $url = "signUp.php?data=invalid";
