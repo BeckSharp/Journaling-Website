@@ -5,9 +5,8 @@ function renderFormSignUp($errorEmpty, $errorUnconfirmed) {
     $errorEmptyMessage = "";
     $errorUnconfirmedMessage = "";
 
-    if ($errorEmpty == "true") { $errorEmptyMessage =  "<p class=\"text-center\">Please enter data in all text fields.</p>"; }
-
-    if ($errorUnconfirmed == "true") { $errorUnconfirmedMessage = "<p class=\"text-center\">Please enter matching passwords.</p>";}
+    if ($errorEmpty == "true") { $errorEmptyMessage =  file_get_contents("data\static\sign_up_error_empty.html"); }
+    if ($errorUnconfirmed == "true") { $errorUnconfirmedMessage = file_get_contents("data\static\sign_up_error_unconfirmed.html"); }
 
     $method = appFormMethod();
     $action = appFormSelfSubmit();
@@ -67,8 +66,8 @@ function renderFormLogIn($errorData, $signUpSuccess) {
     $errorDataMessage = "";
     $signUpSuccessMessage = "";
 
-    if ($errorData == "true") { $errorDataMessage = "<p class=\"text-center\">The credentials you entered where incorrect.</p>"; }
-    if ($signUpSuccess == "true") { $signUpSuccessMessage = "<h1 class=\"text-center\">Congratulations your account has been registered!</h1>"; }
+    if ($errorData == "true") { $errorDataMessage = file_get_contents("data\static\log_in_error_data.html"); }
+    if ($signUpSuccess == "true") { $signUpSuccessMessage = "data\static\sign_up_success.html"; }
 
     $method = appFormMethod();
     $action = appFormSelfSubmit();

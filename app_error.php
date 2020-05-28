@@ -4,16 +4,17 @@ include("api/api.inc.php");
 
 //PAGE GENERATION LOGIC
 function createPage() {
+
+    $errorMessage = file_get_contents("data\static\app_error_message.html");
+
     $content = <<<PAGE
-<h1>Error 404</h1>
-<h2>Sorry, we couldn't find what you were looking for...</h2>
-<p><a href="index.php" class="btn btn-primary">Go Home</a></p>
+{$errorMessage}
 PAGE;
     return $content;
 }
 
 //BUSINESS LOGIC
-$pagetitle = "404: Error Page";
+$pagetitle = "Error Page";
 $pagecontent = createPage();
 
 //BUILDING HTML PAGE

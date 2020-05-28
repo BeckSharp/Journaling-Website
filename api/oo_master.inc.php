@@ -70,7 +70,7 @@ FOOTER;
 
         $logOutLink = "";
         if (appSessionIsSet()) {
-            $logOutLink = "<li class=\"nav-item active nav-pad\"><a href=\"app_exit.php?action=exit\">Log Out</a></li>";
+            $logOutLink = file_get_contents("data\static\\navbar_log_out.html");
         }
 
         $masterpage = <<<MASTER
