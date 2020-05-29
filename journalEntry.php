@@ -4,8 +4,14 @@ include("api/api.inc.php");
 
 //PAGE GENERATION LOGIC
 function createPage() {
-    $content = <<<PAGE
 
+    $errorEmpty = $_GET["empty"] ?? "";
+    $errorDate = $_GET["date"] ?? "";
+
+    $form = renderJournalEntry($errorEmpty, $errorDate);
+
+    $content = <<<PAGE
+{$form}
 PAGE;
     return $content;
 }
