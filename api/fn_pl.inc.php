@@ -9,7 +9,7 @@ function renderFormSignUp($errorEmpty, $errorUnconfirmed) {
     if ($errorUnconfirmed == "true") { $errorUnconfirmedMessage = file_get_contents("data\static\sign_up_error_unconfirmed.html"); }
 
     $method = appFormMethod();
-    $action = appFormSelfSubmit();
+    $action = "app_create_profile.php";
 
     $form = <<<FORM
 <form class="form-horizontal" method="{$method}" action="{$action}">
@@ -18,6 +18,7 @@ function renderFormSignUp($errorEmpty, $errorUnconfirmed) {
         <legend>Sign Up Form</legend>
 
         {$errorEmptyMessage}
+        {$errorUnconfirmedMessage}
 
         <!-- Text input-->
         <div class="form-group">
@@ -45,8 +46,6 @@ function renderFormSignUp($errorEmpty, $errorUnconfirmed) {
                 placeholder="Confirm your password here" class="form-control input-md" required>
             </div>
         </div>
-
-        {$errorUnconfirmedMessage}
 
         <!-- Button -->
         <div class="form-group">
