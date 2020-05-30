@@ -8,7 +8,6 @@ class MasterPage {
     private $_htmlpage;     //Holds custom instance of the HTML page
     private $_dynamic_1;    //Represents Dynamic Content #1
     private $_dynamic_2;    //Represents Dynamic Content #2
-    private $_dynamic_3;    //Represents Dynamic Content #3
 
     //CONSTRUCTORS
     function __construct($title) {
@@ -20,13 +19,11 @@ class MasterPage {
     //GETTERS
     public function getDynamic1() { return $this->_dynamic_1; }
     public function getDynamic2() { return $this->_dynamic_2; }
-    public function getDynamic3() { return $this->_dynamic_3; }
     public function getPage(): HTMLPage { return $this->_htmlpage; }
 
     //SETTERS
     public function setDynamic1($html) { $this->_dynamic_1 = $html; }
     public function setDynamic2($html) { $this->_dynamic_2 = $html; }
-    public function setDynamic3($html) { $this->_dynamic_3 = $html; }
 
     //PUBLIC FUNCTIONS
     public function createPage() {
@@ -60,8 +57,7 @@ class MasterPage {
     private function setDynamicDefaults() {
         $year = date("Y");
         $this->_dynamic_1 = "";
-        $this->_dynamic_2 = "";
-        $this->_dynamic_3 = <<<FOOTER
+        $this->_dynamic_2 = <<<FOOTER
 <p>Thomas Beck - Making Life Easier With Journals&copy; {$year}</p>
 FOOTER;
     }
@@ -97,14 +93,11 @@ FOOTER;
             </div>
         </div>
     </nav>
-    <div class="jumbotron">
+    <div class="row details">
         {$this->_dynamic_1}
     </div>
-    <div class="row details">
-        {$this->_dynamic_2}
-    </div>
     <footer class="footer">
-        {$this->_dynamic_3}
+        {$this->_dynamic_2}
     </footer>
     </div>
 MASTER;

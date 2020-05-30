@@ -23,15 +23,12 @@ if (!appSessionIsSet()) {
 }
 
 $pagetitle = "New Entry";
-$pagelead  = "";
 $pagecontent = createPage();
 $pagefooter = "";
 
 //BUILDING HTML PAGE
 $page = new MasterPage($pagetitle);
-if(!empty($pagelead))
-    $page->setDynamic1($pagelead);
-$page->setDynamic2($pagecontent);
+$page->setDynamic1($pagecontent);
 if(!empty($pagefooter))
-    $page->setDynamic3($pagefooter);
+    $page->setDynamic2($pagefooter);
 $page->renderPage();

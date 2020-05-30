@@ -124,7 +124,7 @@ function renderJournalEntry($errorEmpty, $errorDate) {
     $yearOptions = renderNumericOptions($currentYear, $currentYear + 100);
 
     $method = appFormMethod();
-    $action = appFormSelfSubmit();
+    $action = "app_create_journal_entry.php";
 
     $form = <<<FORM
 <form class="form-horizontal" method="{$method}" action="{$action}">

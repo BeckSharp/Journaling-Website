@@ -19,6 +19,6 @@ $pagecontent = createPage();
 
 //BUILDING HTML PAGE
 $page = new MasterPage($pagetitle);
-$page->setDynamic2($pagecontent);
+$page->setDynamic1($pagecontent);
 $page->renderPage();
 ?>
