@@ -70,7 +70,7 @@ function renderFormLogIn($errorData, $signUpSuccess) {
     if ($signUpSuccess == "true") { $signUpSuccessMessage = file_get_contents("data\static\sign_up_success.html"); }
 
     $method = appFormMethod();
-    $action = appFormSelfSubmit();
+    $action = "app_entry.php";
 
     $form = <<<FORM
 <form class="form-horizontal" method="{$method}" action="{$action}">

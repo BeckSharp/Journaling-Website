@@ -16,40 +16,18 @@ PAGE;
 }
 
 //BUSINESS LOGIC
-if (!appProfileRegisteredCheck()) {
-    appRedirect("signUp.php");
+if (!appProfileRegisteredCheck()) { 
+    appRedirect("signUp.php"); 
 }
 
 session_start();
-if (appSessionIsSet()) {
-    appRedirect("index.php");
-}
-
-if (appFormMethodIsPost()) {
-    //RETRIEVING POSTED DATA
-    $username = $_POST["username"] ?? "";
-    $password = $_POST["password"] ?? "";
-
-    //REMOVING MALICIOUS TEXT
-    $username = appReplaceEntityTags($username);
-    $password = appReplaceEntityTags($password);
-
-    if (isLogInValid($username, $password)) {
-        //SET SESSION TOKENS
-        appSetSessionLogInTokens($username);
-
-        //REDIRECT USER TO index.php
-        appRedirect("index.php");
-    } else {
-        //REDIRECT TO logIn.php WITH ERROR MESSAGE
-        appRedirect("logIn.php?invalid=true");
-    }
-} else {
-    $pagecontent = createPage();
+if (appSessionIsSet()) { 
+    appRedirect("index.php"); 
 }
 
 $pagetitle = "Log In";
 $pagelead  = "";
+$pagecontent = createPage();
 $pagefooter = "";
 
 //BUILDING HTML PAGE
@@ -60,23 +38,3 @@ $page->setDynamic2($pagecontent);
 if(!empty($pagefooter))
     $page->setDynamic3($pagefooter);
 $page->renderPage();
-
-//FUNCTIONS TO VALIDATE DATA
-function isLogInValid($username, $password) {
-    $profile = jsonLoadProfile();
-    if (!isUsernameValid($username, $profile->username)) { return false; }
-    if (!isPasswordValid($password, $profile->password)) { return false; }
-    return true;
-}
-
-function isUsernameValid($username, $registeredUsername) {
-    $encryption = new BLLEncryption($username, $username);
-    $encryptedUsername = $encryption->encryptData();
-    if ($encryptedUsername != $registeredUsername) { return false; }
-    return true;
-}
-
-function isPasswordValid($password, $registeredPassword) {
-    if (!password_verify($password, $registeredPassword)) { return false; }
-    return true;
-}

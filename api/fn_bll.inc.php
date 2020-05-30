@@ -27,7 +27,6 @@ function appFormMethodIsPost() {
     return strtolower($_SERVER['REQUEST_METHOD']) == 'post';
 }
 
-
 //FUNCTION TO REPLACE ENTITIES FOR TAGS IN STRING
 function appReplaceEntityTags($data) {
     $data = str_replace("<", "&lt;", $data);
