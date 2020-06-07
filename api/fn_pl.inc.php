@@ -253,7 +253,7 @@ function renderFormChangePassword() {
     <!-- Button -->
     <div class="form-group">
       <div class="col-md-4 col-md-offset-4">
-        <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Add Entry</button>
+        <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Change</button>
       </div>
     </div>
 
