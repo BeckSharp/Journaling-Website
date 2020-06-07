@@ -111,7 +111,7 @@ FORM;
     return $form;
 }
 
-function renderJournalEntry($errorEmpty, $errorDate) {
+function renderFormJournalEntry($errorEmpty, $errorDate) {
     $errorEmptyMessage = "";
     $errorDateMessage = "";
 
@@ -208,6 +208,54 @@ function renderJournalEntry($errorEmpty, $errorDate) {
             <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Add Entry</button>
           </div>
         </div>
+
+    </fieldset>
+</form>
+FORM;
+    return $form;
+}
+
+function renderFormChangePassword() {
+    $method = appFormMethod();
+    $action = "app_edit_password.php";
+
+    $form = <<<FORM
+<form class="form-horizontal" method="{$method}" action="{$action}">
+    <fieldset>
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="password">Current Password</label>
+        <div class="col-md-4">
+            <input id="password" name="password" type="password" 
+            placeholder="Enter your current password here" class="form-control input-md" required>
+        </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="newPassword">New Password</label>
+        <div class="col-md-4">
+            <input id="newPassword" name="newPassword" type="password" 
+            placeholder="Enter your new password here" class="form-control input-md" required>
+        </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="confirmationPassword">Confirmation Password</label>
+        <div class="col-md-4">
+            <input id="confirmationPassword" name="confirmationPassword" type="password" 
+            placeholder="Confirm your new password here" class="form-control input-md" required>
+        </div>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group">
+      <div class="col-md-4 col-md-offset-4">
+        <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Add Entry</button>
+      </div>
+    </div>
 
     </fieldset>
 </form>
