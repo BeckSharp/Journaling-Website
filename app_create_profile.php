@@ -18,7 +18,7 @@ if (appFormMethodIsPost() && !appProfileRegisteredCheck()) {
         $encryption = new BLLEncryption($username, $username);
         $encryptedUsername = $encryption->encryptData();
         //HASH & SALT PASSWORD
-        $hashedPassword= appHashData($password);
+        $hashedPassword = appHashData($password);
 
         //WRITE DATA TO JSON
         $profile = new BLLProfile();
