@@ -4,9 +4,23 @@ include("api/api.inc.php");
 
 //PAGE GENERATION LOGIC
 function createPage() {
+    $passwordSuccess = $_GET["pwordChanged"] ?? "";
+    $errorPassword = $_GET["pwordInvalid"] ?? "";
+    $errorConfirmation = $_GET["confirmationInvalid"] ?? "";
+
+    $errorMessages = "";
+    if ($errorPassword == "true") { $errorMessages .= "Password Invalid"; }
+    if ($errorConfirmation == "true") { $errorMessages .= "Confirmation Invalid"; }
+
+
+    $successMessage = "";
+    if ($passwordSuccess == "true") { $successMessage .= "Password Changed";}
+
     $passwordForm = renderFormChangePassword();
 
     $content = <<<PAGE
+{$successMessage}
+{$errorMessages}
 <div class="row details">
     <div class="panel panel-primary">
         <div class="panel-heading">
