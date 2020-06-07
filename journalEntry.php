@@ -8,7 +8,7 @@ function createPage() {
     $errorEmpty = $_GET["empty"] ?? "";
     $errorDate = $_GET["date"] ?? "";
 
-    $form = renderJournalEntry($errorEmpty, $errorDate);
+    $form = renderFormJournalEntry($errorEmpty, $errorDate);
 
     $content = <<<PAGE
 {$form}
