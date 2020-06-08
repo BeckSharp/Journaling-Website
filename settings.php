@@ -9,17 +9,17 @@ function createPage() {
     $errorConfirmation = $_GET["confirmationInvalid"] ?? "";
 
     $errorMessages = "";
-    if ($errorPassword == "true") { $errorMessages .= "Password Invalid"; }
-    if ($errorConfirmation == "true") { $errorMessages .= "Confirmation Invalid"; }
+    if ($errorPassword == "true") { $errorMessages .= file_get_contents("data\static\settings\password_invalid_error.html"); }
+    if ($errorConfirmation == "true") { $errorMessages .= file_get_contents("data\static\settings\password_confirmation_error.html"); }
 
 
-    $successMessage = "";
-    if ($passwordSuccess == "true") { $successMessage .= "Password Changed";}
+    $successMessages = "";
+    if ($passwordSuccess == "true") { $successMessages .= file_get_contents("data\static\settings\password_change_success.html");}
 
     $passwordForm = renderFormChangePassword();
 
     $content = <<<PAGE
-{$successMessage}
+{$successMessages}
 {$errorMessages}
 <div class="row details">
     <div class="panel panel-primary">
