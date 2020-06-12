@@ -139,21 +139,23 @@ function renderFormJournalEntry($errorEmpty, $errorDate) {
         <div class="form-group">
             <label class="col-md-4 control-label" for="dateDay">Date (DD/MM/YYYY)</label>
             <div>
-            <div class="col-md-2">
-                <select id="dateDay" name="DateDay" class="form-control">
-                    {$dayOptions}
-                </select>
-            </div>
-            <div class="col-md-2">
-                <select id="dateMonth" name="DateMonth" class="form-control">
-                    {$monthOptions}
-                </select>
-            </div>
-            <div class="col-md-2">
-                <select id="dateYear" name="DateYear" class="form-control">
-                    {$yearOptions}
-                </select>
-            </div>
+                <div class="col-md-6">
+                    <div class="col-xs-4">
+                        <select id="dateDay" name="DateDay" class="form-control">
+                            {$dayOptions}
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <select id="dateMonth" name="DateMonth" class="form-control">
+                            {$monthOptions}
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <select id="dateYear" name="DateYear" class="form-control">
+                            {$yearOptions}
+                        </select>
+                    </div>
+                </div>
             </div>
          </div>
 
