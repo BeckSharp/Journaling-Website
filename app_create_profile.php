@@ -15,8 +15,8 @@ if (appFormMethodIsPost() && !appProfileRegisteredCheck()) {
 
     if (isDataValid($username, $password, $confirmation)) {
         //ENCRYPT USERNAME
-        $encryption = new BLLEncryption($username, $username);
-        $encryptedUsername = $encryption->encryptData();
+        $encryption = new BLLEncryption();
+        $encryptedUsername = $encryption->encryptData($username, $username);
         //HASH & SALT PASSWORD
         $hashedPassword = appHashData($password);
 

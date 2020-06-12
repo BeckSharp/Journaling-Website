@@ -12,7 +12,6 @@ function createPage() {
     if ($errorPassword == "true") { $errorMessages .= file_get_contents("data\static\settings\password_invalid_error.html"); }
     if ($errorConfirmation == "true") { $errorMessages .= file_get_contents("data\static\settings\password_confirmation_error.html"); }
 
-
     $successMessages = "";
     if ($passwordSuccess == "true") { $successMessages .= file_get_contents("data\static\settings\password_change_success.html");}
 

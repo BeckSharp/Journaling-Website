@@ -33,29 +33,17 @@ class BLLJournalEntry {
 
 class BLLEncryption {
     //FIELDS
-    public $data;
-    public $ciphering;
-    public $key;
-    public $options;
-    public $initializationVector;
+    private $ciphering = "AES-128-CTR";
+    private $options = 0;
+    private $initializationVector = '1234567891011121';
 
     //Functions
-    public function __construct($data, $key) {
-        $this->data = $data;
-        $this->ciphering = "AES-128-CTR";
-        $this->key = $key;
-        $this->options = 0;
-        $this->initializationVector = '1234567891011121';
+    public function encryptData($data, $key) {
+        return openssl_encrypt($data, $this->ciphering, $key, $this->options, $this->initializationVector);
     }
 
-    public function encryptData() {
-        return openssl_encrypt($this->data, $this->ciphering, $this->key, 
-                                $this->options, $this->initializationVector);
-    }
-
-    public function decryptData($decryptionData) {
-        return openssl_decrypt($decryptionData, $this->ciphering, $this->key, 
-                                $this->options, $this->initializationVector);
+    public function decryptData($data, $key) {
+        return openssl_decrypt($data, $this->ciphering, $key, $this->options, $this->initializationVector);
     }
 }
 ?>
