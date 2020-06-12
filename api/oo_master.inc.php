@@ -66,7 +66,7 @@ FOOTER;
 
         $logOutLink = "";
         if (appSessionIsSet()) {
-            $logOutLink = file_get_contents("data\static\\navbar_log_out.html");
+            $logOutLink = file_get_contents("data\static\\navbar\\navbar_log_out.html");
         }
 
         $masterpage = <<<MASTER

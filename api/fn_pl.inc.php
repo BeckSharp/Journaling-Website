@@ -5,8 +5,8 @@ function renderFormSignUp($errorEmpty, $errorUnconfirmed) {
     $errorEmptyMessage = "";
     $errorUnconfirmedMessage = "";
 
-    if ($errorEmpty == "true") { $errorEmptyMessage =  file_get_contents("data\static\sign_up_error_empty.html"); }
-    if ($errorUnconfirmed == "true") { $errorUnconfirmedMessage = file_get_contents("data\static\sign_up_error_unconfirmed.html"); }
+    if ($errorEmpty == "true") { $errorEmptyMessage =  file_get_contents("data\static\signUp\sign_up_error_empty.html"); }
+    if ($errorUnconfirmed == "true") { $errorUnconfirmedMessage = file_get_contents("data\static\signUp\sign_up_error_unconfirmed.html"); }
 
     $method = appFormMethod();
     $action = "app_create_profile.php";
@@ -65,8 +65,8 @@ function renderFormLogIn($errorData, $signUpSuccess) {
     $errorDataMessage = "";
     $signUpSuccessMessage = "";
 
-    if ($errorData == "true") { $errorDataMessage = file_get_contents("data\static\log_in_error_data.html"); }
-    if ($signUpSuccess == "true") { $signUpSuccessMessage = file_get_contents("data\static\sign_up_success.html"); }
+    if ($errorData == "true") { $errorDataMessage = file_get_contents("data\static\logIn\log_in_error_data.html"); }
+    if ($signUpSuccess == "true") { $signUpSuccessMessage = file_get_contents("data\static\signUp\sign_up_success.html"); }
 
     $method = appFormMethod();
     $action = "app_entry.php";
@@ -115,8 +115,8 @@ function renderFormJournalEntry($errorEmpty, $errorDate) {
     $errorEmptyMessage = "";
     $errorDateMessage = "";
 
-    if ($errorEmpty == "true") {$errorEmptyMessage = file_get_contents("data\static\journal_entry_error_empty.html"); }
-    if ($errorDate == "true") {$errorDateMessage = file_get_contents("data\static\journal_entry_error_date.html"); }
+    if ($errorEmpty == "true") {$errorEmptyMessage = file_get_contents("data\static\journal\journal_entry_error_empty.html"); }
+    if ($errorDate == "true") {$errorDateMessage = file_get_contents("data\static\journal\journal_entry_error_date.html"); }
 
     $currentYear = date("Y");
     $dayOptions = renderNumericOptions(1, 31);
