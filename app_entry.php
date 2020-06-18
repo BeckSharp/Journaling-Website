@@ -39,8 +39,7 @@ function isLogInValid($username, $password) {
 }
 
 function isUsernameValid($username, $registeredUsername) {
-    $encryption = new BLLEncryption();
-    $encryptedUsername = $encryption->encryptData($username, $username);
+    $encryptedUsername = appEncryptData($username, $username);
     if ($encryptedUsername != $registeredUsername) { return false; }
     return true;
 }
