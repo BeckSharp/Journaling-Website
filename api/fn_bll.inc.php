@@ -42,15 +42,13 @@ function appHashData($data) {
 //FUNCTION TO ENCRYPT DATA FOR STORAGE IN SESSION
 function appEncryptSessionData($data) {
     $key = "SessionData";
-    $encryption = new BLLEncryption();
-    return $encryption->encryptData($data, $key);
+    return appEncryptData($data, $key);
 }
 
 //FUNCTION TO DECRYPT DATA FROM SESSION STORAGE
 function appDecryptSessionData($data) {
     $key = "SessionData";
-    $decryption = new BLLEncryption();
-    return $decryption->decryptData($data, $key);
+    return appDecryptData($data, $key);
 }
 
 //FUNCTION TO ENCRYPT DATA
