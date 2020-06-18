@@ -2,7 +2,9 @@
 //INCLUDING API
 include("api/api.inc.php");
 
-if (appFormMethodIsPost()) {
+session_start();
+
+if (appFormMethodIsPost() && appSessionIsSet()) {
     //RETRIEVING POSTED DATA
     $oldPassword = $_POST["password"] ?? "";
     $newPassword = $_POST["newPassword"] ?? "";
