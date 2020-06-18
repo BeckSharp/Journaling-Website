@@ -53,6 +53,19 @@ function appDecryptSessionData($data) {
     return $decryption->decryptData($data, $key);
 }
 
+//FUNCTION TO ENCRYPT DATA
+function appEncryptData($data, $key) {
+    $encryption = new BLLEncryption();
+    return $encryption->encryptData($data, $key);
+}
+
+
+//FUNCTION TO DECRYPT DATA
+function appDecryptData($data, $key) {
+    $decryption = new BLLEncryption();
+    return $decryption->decryptData($data, $key);
+}
+
 //FUNCTION TO SET SESSSION LOG IN TOKENS
 function appSetSessionLogInTokens($username) {
     $username = appEncryptSessionData($username);
