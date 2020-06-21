@@ -29,7 +29,6 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
         //CREATE DATE USING POSTED DATA
 
         //ENCRYPTING DATA FOR STORAGE
-
         //CREATING JOURNAL ENTRY OBJECT
         $journalEntry = new BLLJournalEntry;
 
@@ -56,7 +55,7 @@ function createDate($day, $month, $year) {
 function isJournalEntryValid($day, $month, $year, $weeding, $reflection, $planning, $notes, $question) {
     if (!isDataNotEmpty($day, $month, $year, $weeding, $reflection, $planning, $notes, $question)) { return false; }
     if (!isDateValid($day, $month, $year)) { return false; }
-    //VALIATE DATA'S DATE ISN'T TAKEN
+    if (isDateTaken($day, $month, $year)) { return false; }
     return true;
 }
 
@@ -78,5 +77,16 @@ function isDateValid($day, $month, $year) {
 }
 
 function isDateTaken($day, $month, $year) {
+    $entries = jsonLoadAllJournalEntries();
+    if (count($entries) == 0) { return false; }
 
+    $date = createDate($day, $month, $year);
+    $key = appDecryptSessionData($_SESSION["username"]);
+    $encryptedDate = appEncryptData($date, $key);
+
+    foreach ($entries as $entry) {
+        if ($entry->$date == $encryptedDate) { return true; }
+    }
+
+    return false;
 }
