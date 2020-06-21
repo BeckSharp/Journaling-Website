@@ -25,7 +25,7 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
     $notes = appReplaceEntityTags($notes);
     $question = appReplaceEntityTags($question);
 
-    if (isJournalEntryValid($dateDay, $dateMonth, $dateDay, $weeding, $reflection, $planning, $notes, $question)){
+    if (isJournalEntryValid($dateDay, $dateMonth, $dateYear, $weeding, $reflection, $planning, $notes, $question)){
         //CREATE DATE USING POSTED DATA
 
         //ENCRYPTING DATA FOR STORAGE
@@ -46,10 +46,37 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
     appRedirect("app_error.php");
 }
 
+//FUNCTION TO CREATE A DATE
+function createDate($day, $month, $year) {
+    $date = $day."-".$month."-".$year;
+    return date_create($date);
+}
+
 //FUNCTIONS TO VALIDATE DATA
 function isJournalEntryValid($day, $month, $year, $weeding, $reflection, $planning, $notes, $question) {
-    //VALIDATE DATA ISN'T EMPTY
-    //VALIDATE DATA'S DATE IS REAL
+    if (!isDataNotEmpty($day, $month, $year, $weeding, $reflection, $planning, $notes, $question)) { return false; }
+    if (!isDateValid($day, $month, $year)) { return false; }
     //VALIATE DATA'S DATE ISN'T TAKEN
     return true;
+}
+
+function isDataNotEmpty($day, $month, $year, $weeding, $reflection, $planning, $notes, $question) {
+    if (empty($day)) { return false; }
+    if (empty($month)) { return false; }
+    if (empty($year)) { return false; }
+    if (empty($weeding)) { return false; }
+    if (empty($reflection)) { return false; }
+    if (empty($planning)) { return false; }
+    if (empty($notes)) { return false; }
+    if (empty($question)) { return false; }
+    return true;
+}
+
+function isDateValid($day, $month, $year) {
+    if (!checkdate($month, $day, $year)) { return false; }
+    return true;
+}
+
+function isDateTaken($day, $month, $year) {
+
 }
