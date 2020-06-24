@@ -25,21 +25,43 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
     $notes = appReplaceEntityTags($notes);
     $question = appReplaceEntityTags($question);
 
-    if (isJournalEntryValid($dateDay, $dateMonth, $dateYear, $weeding, $reflection, $planning, $notes, $question)){
+    if (isJournalEntryValid($dateDay, $dateMonth, $dateYear, $weeding, $reflection, $planning, $notes, $question)) {
         //CREATE DATE USING POSTED DATA
+        $date = createDate($dateDay, $dateMonth, $dateYear);
 
-        //ENCRYPTING DATA FOR STORAGE
-        //CREATING JOURNAL ENTRY OBJECT
+        //CREATING JOURNAL ENTRY OBJECT WITH ENCRYPTED DATA
+        $key = appDecryptSessionData($_SESSION["username"]);
         $journalEntry = new BLLJournalEntry;
+        $journalEntry->username = appEncryptData($key, $key);
+        $journalEntry->date = appEncryptData($date, $key);
+        $journalEntry->weeding = appEncryptData($weeding, $key);
+        $journalEntry->reflection = appEncryptData($reflection, $key);
+        $journalEntry->planning = appEncryptData($planning, $key);
+        $journalEntry->noteTaking = appEncryptData($notes, $key);
+        $journalEntry->questions = appEncryptData($question, $key);
 
         //WRITE DATA TO JSON
+        $saveData = json_encode($journalEntry).PHP_EOL;
+        $fileContent = file_get_contents("data/json/entries.json");
+        $fileContent .= $saveData;
+        file_put_contents("data/json/entries.json", $fileContent);
 
         //REDIRECT USER WITH SUCCESS MESSAGE
-
+        appRedirect("index.php?entryAdded=true");
     }
     else {
         //REDIRECT USER WITH ERROR MESSAGE
-        
+        $url = "journalEntry.php";
+        $errorCount = 0;
+        if (!isDataNotEmpty($dateDay, $dateMonth, $dateYear, $weeding, $reflection, $planning, $notes, $question)) {
+            $url .= "?empty=true"; 
+            $errorCount++;
+        }
+        if (!isDateValid($dateDay, $dateMonth, $dateYear) || isDateTaken($dateDay, $dateMonth, $dateYear)) {
+            if ($errorCount > 0) { $url .= "&date=true"; }
+            if ($errorCount == 0) { $url .= "?date=true"; }
+        }
+        appRedirect($url);
     }
 } else {
     appRedirect("app_error.php");
@@ -48,7 +70,7 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
 //FUNCTION TO CREATE A DATE
 function createDate($day, $month, $year) {
     $date = $day."-".$month."-".$year;
-    return date_create($date);
+    return $date;
 }
 
 //FUNCTIONS TO VALIDATE DATA
@@ -85,7 +107,7 @@ function isDateTaken($day, $month, $year) {
     $encryptedDate = appEncryptData($date, $key);
 
     foreach ($entries as $entry) {
-        if ($entry->$date == $encryptedDate) { return true; }
+        if ($entry->date == $encryptedDate) { return true; }
     }
 
     return false;
