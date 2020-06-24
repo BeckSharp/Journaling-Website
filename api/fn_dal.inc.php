@@ -48,6 +48,6 @@ function jsonLoadOneJournalEntry($id) {
 
 function jsonLoadAllJournalEntries() {
     $array = jsonAll("data/json/entries.json");
-    return array_map(function($data){ $entry = new BLLConsumerInformation(); $entry->fromArray($data); return $entry; }, $array);
+    return array_map(function($data){ $entry = new BLLJournalEntry; $entry->fromArray($data); return $entry; }, $array);
 }
 ?>
