@@ -222,45 +222,73 @@ function renderFormChangePassword() {
     $action = "app_edit_password.php";
 
     $form = <<<FORM
-<form class="form-horizontal" method="{$method}" action="{$action}">
-    <fieldset>
+<div class="row details">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">Change your password here:</h2>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" method="{$method}" action="{$action}">
+                <fieldset>
 
-    <!-- Text input-->
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="password">Current Password</label>
-        <div class="col-md-4">
-            <input id="password" name="password" type="password" 
-            placeholder="Enter your current password here" class="form-control input-md" required>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="password">Current Password</label>
+                    <div class="col-md-4">
+                        <input id="password" name="password" type="password" 
+                        placeholder="Enter your current password here" class="form-control input-md" required>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="newPassword">New Password</label>
+                    <div class="col-md-4">
+                        <input id="newPassword" name="newPassword" type="password" 
+                        placeholder="Enter your new password here" class="form-control input-md" required>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="confirmationPassword">Confirmation Password</label>
+                    <div class="col-md-4">
+                        <input id="confirmationPassword" name="confirmationPassword" type="password" 
+                        placeholder="Confirm your new password here" class="form-control input-md" required>
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                <div class="col-md-4 col-md-offset-4">
+                    <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Change</button>
+                </div>
+                </div>
+
+                </fieldset>
+            </form>
         </div>
     </div>
+</div>
+FORM;
+    return $form;
+}
 
-    <!-- Text input-->
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="newPassword">New Password</label>
-        <div class="col-md-4">
-            <input id="newPassword" name="newPassword" type="password" 
-            placeholder="Enter your new password here" class="form-control input-md" required>
+function renderFormDeleteJournalEntry() {
+    $method = appFormMethod();
+    $action = "app_delete_journal_entry.php";
+
+    $form = <<<FORM
+<div class="row details">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+	        <h2 class="panel-title">Delete a journal entry here</h2>
+        </div>
+        <div class="panel-body">
+            Render for entry deletion goes here
         </div>
     </div>
-
-    <!-- Text input-->
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="confirmationPassword">Confirmation Password</label>
-        <div class="col-md-4">
-            <input id="confirmationPassword" name="confirmationPassword" type="password" 
-            placeholder="Confirm your new password here" class="form-control input-md" required>
-        </div>
-    </div>
-
-    <!-- Button -->
-    <div class="form-group">
-      <div class="col-md-4 col-md-offset-4">
-        <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Change</button>
-      </div>
-    </div>
-
-    </fieldset>
-</form>
+</div>
 FORM;
     return $form;
 }

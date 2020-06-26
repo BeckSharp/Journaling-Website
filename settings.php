@@ -16,30 +16,13 @@ function createPage() {
     if ($passwordSuccess == "true") { $successMessages .= file_get_contents("data\static\settings\password_change_success.html");}
 
     $passwordForm = renderFormChangePassword();
+    $deletionForm = renderFormDeleteJournalEntry();
 
     $content = <<<PAGE
 {$successMessages}
 {$errorMessages}
-<div class="row details">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-	        <h2 class="panel-title">Change your password here:</h2>
-        </div>
-        <div class="panel-body">
-            {$passwordForm}
-        </div>
-    </div>
-</div>
-<div class="row details">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-	        <h2 class="panel-title">Delete a journal entry here</h2>
-        </div>
-        <div class="panel-body">
-            Render for entry deletion goes here
-        </div>
-    </div>
-</div>
+{$passwordForm}
+{$deletionForm}
 PAGE;
     return $content;
 }
