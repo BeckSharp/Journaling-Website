@@ -12,51 +12,57 @@ function renderFormSignUp($errorEmpty, $errorUnconfirmed) {
     $action = "app_create_profile.php";
 
     $form = <<<FORM
-<form class="form-horizontal" method="{$method}" action="{$action}">
-    <fieldset>
-        <!-- Form Name -->
-        <legend>Sign Up Form</legend>
-
-        {$errorEmptyMessage}
-        {$errorUnconfirmedMessage}
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="username">Username</label>
-            <div class="col-md-4">
-                <input id="username" name="username" type="text" 
-                placeholder="Enter your desired username here" class="form-control input-md" required>
-            </div>
+{$errorEmptyMessage}
+{$errorUnconfirmedMessage}
+<div class="row details">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+	        <h2 class="panel-title">Sign Up Form</h2>
         </div>
+        <div class="panel-body">
+            <form class="form-horizontal" method="{$method}" action="{$action}">
+                <fieldset>
 
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="password">Password</label>
-            <div class="col-md-4">
-                <input id="password" name="password" type="password" 
-                placeholder="Enter your password here" class="form-control input-md" required>
-            </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="username">Username</label>
+                        <div class="col-md-4">
+                            <input id="username" name="username" type="text" 
+                            placeholder="Enter your username here" class="form-control input-md" required>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="password">Password</label>
+                        <div class="col-md-4">
+                            <input id="password" name="password" type="password" 
+                            placeholder="Enter your password here" class="form-control input-md" required>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="passwordConfirmation">Confirmation</label>
+                        <div class="col-md-4">
+                            <input id="passwordConfirmation" name="passwordConfirmation" type="password" 
+                            placeholder="Confirm your password here" class="form-control input-md" required>
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="form-sub">Create Account</label>
+                    <div class="col-md-4">
+                        <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Sign Up</button>
+                    </div>
+                    </div>
+
+                </fieldset>
+            </form>
         </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="passwordConfirmation">Confirmation</label>
-            <div class="col-md-4">
-                <input id="passwordConfirmation" name="passwordConfirmation" type="password" 
-                placeholder="Confirm your password here" class="form-control input-md" required>
-            </div>
-        </div>
-
-        <!-- Button -->
-        <div class="form-group">
-          <label class="col-md-4 control-label" for="form-sub">Create Account</label>
-          <div class="col-md-4">
-            <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Sign Up</button>
-          </div>
-        </div>
-
-    </fieldset>
-</form>
+    </div>
+</div>
 FORM;
     return $form;
 }
@@ -72,41 +78,47 @@ function renderFormLogIn($errorData, $signUpSuccess) {
     $action = "app_entry.php";
 
     $form = <<<FORM
-<form class="form-horizontal" method="{$method}" action="{$action}">
-    <fieldset>
-        <!-- Form Name -->
-        <legend>Log In Form</legend>
-
-        {$signUpSuccessMessage}
-        {$errorDataMessage}
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="username">Username</label>
-            <div class="col-md-4">
-                <input id="username" name="username" type="text" 
-                placeholder="Enter your desired username here" class="form-control input-md" required>
-            </div>
+{$signUpSuccessMessage}
+{$errorDataMessage}
+<div class="row details">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+	        <h2 class="panel-title">Log In Form</h2>
         </div>
+        <div class="panel-body">
+            <form class="form-horizontal" method="{$method}" action="{$action}">
+                <fieldset>
 
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="password">Password</label>
-            <div class="col-md-4">
-                <input id="password" name="password" type="password" 
-                placeholder="Enter your password here" class="form-control input-md" required>
-            </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="username">Username</label>
+                        <div class="col-md-4">
+                            <input id="username" name="username" type="text" 
+                            placeholder="Enter your username here" class="form-control input-md" required>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="password">Password</label>
+                        <div class="col-md-4">
+                            <input id="password" name="password" type="password" 
+                            placeholder="Enter your password here" class="form-control input-md" required>
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="form-group">
+                    <div class="col-md-4 col-md-offset-4">
+                        <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Log In</button>
+                    </div>
+                    </div>
+
+                </fieldset>
+            </form>
         </div>
-
-        <!-- Button -->
-        <div class="form-group">
-          <div class="col-md-4 col-md-offset-4">
-            <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Log In</button>
-          </div>
-        </div>
-
-    </fieldset>
-</form>
+    </div>
+</div>
 FORM;
     return $form;
 }
@@ -127,92 +139,98 @@ function renderFormJournalEntry($errorEmpty, $errorDate) {
     $action = "app_create_journal_entry.php";
 
     $form = <<<FORM
-<form class="form-horizontal" method="{$method}" action="{$action}">
-    <fieldset>
-        <!-- Form Name -->
-        <legend>Add Journal Entry</legend>
+{$errorEmptyMessage}
+{$errorDateMessage}
+<div class="row details">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+	        <h2 class="panel-title">Add Journal Entry</h2>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" method="{$method}" action="{$action}">
+                <fieldset>
 
-        {$errorEmptyMessage}
-        {$errorDateMessage}
-
-        <!-- Select Basic -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="dateDay">Date (DD/MM/YYYY)</label>
-            <div>
-                <div class="col-md-6">
-                    <div class="col-xs-4">
-                        <select id="dateDay" name="dateDay" class="form-control">
-                            {$dayOptions}
-                        </select>
+                    <!-- Select Basic -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="dateDay">Date (DD/MM/YYYY)</label>
+                        <div>
+                            <div class="col-md-6">
+                                <div class="col-xs-4">
+                                    <select id="dateDay" name="dateDay" class="form-control">
+                                        {$dayOptions}
+                                    </select>
+                                </div>
+                                <div class="col-xs-4">
+                                    <select id="dateMonth" name="dateMonth" class="form-control">
+                                        {$monthOptions}
+                                    </select>
+                                </div>
+                                <div class="col-xs-4">
+                                    <select id="dateYear" name="dateYear" class="form-control">
+                                        {$yearOptions}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-xs-4">
-                        <select id="dateMonth" name="dateMonth" class="form-control">
-                            {$monthOptions}
-                        </select>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="weeding">Weeding</label>
+                        <div class="col-md-6">
+                            <input id="weeding" name="weeding" type="text" 
+                            class="form-control input-md" required>
+                        </div>
                     </div>
-                    <div class="col-xs-4">
-                        <select id="dateYear" name="dateYear" class="form-control">
-                            {$yearOptions}
-                        </select>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="reflection">Reflection</label>
+                        <div class="col-md-6">
+                            <input id="reflection" name="reflection" type="text" 
+                            class="form-control input-md" required>
+                        </div>
                     </div>
-                </div>
-            </div>
-         </div>
 
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="weeding">Weeding</label>
-            <div class="col-md-6">
-                <input id="weeding" name="weeding" type="text" 
-                placeholder="Type the problems you want to weed out here" class="form-control input-md" required>
-            </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="planning">Planning</label>
+                        <div class="col-md-6">
+                            <input id="planning" name="planning" type="text" 
+                            class="form-control input-md" required>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="notes">Notes</label>
+                        <div class="col-md-6">
+                            <input id="notes" name="notes" type="text" 
+                            class="form-control input-md" required>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="question">Question</label>
+                        <div class="col-md-6">
+                            <input id="question" name="question" type="text" 
+                            class="form-control input-md" required>
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="form-group">
+                    <div class="col-md-4 col-md-offset-4">
+                        <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Add Entry</button>
+                    </div>
+                    </div>
+
+                </fieldset>
+            </form>
         </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="reflection">Reflection</label>
-            <div class="col-md-6">
-                <input id="reflection" name="reflection" type="text" 
-                placeholder="Type and reflect upon the tasks you have done" class="form-control input-md" required>
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="planning">Planning</label>
-            <div class="col-md-6">
-                <input id="planning" name="planning" type="text" 
-                placeholder="Type what you are going to do the next day here" class="form-control input-md" required>
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="notes">Notes</label>
-            <div class="col-md-6">
-                <input id="notes" name="notes" type="text" 
-                placeholder="Type anything here you found interesting today" class="form-control input-md" required>
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="question">Question</label>
-            <div class="col-md-6">
-                <input id="question" name="question" type="text" 
-                placeholder="Type a deep question to ponder/meditate about" class="form-control input-md" required>
-            </div>
-        </div>
-
-        <!-- Button -->
-        <div class="form-group">
-          <div class="col-md-4 col-md-offset-4">
-            <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Add Entry</button>
-          </div>
-        </div>
-
-    </fieldset>
-</form>
+    </div>
+</div>
 FORM;
     return $form;
 }
