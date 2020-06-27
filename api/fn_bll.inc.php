@@ -1,4 +1,7 @@
 <?php
+//INCLUDING OBJECT CLASSES
+require_once("oo_bll.inc.php");
+
 //FUNCTION TO VALIDATE IF AN ACCOUNT IS REGISTERED
 function appProfileRegisteredCheck() {
     $profile = jsonLoadProfile();
@@ -62,6 +65,18 @@ function appEncryptData($data, $key) {
 function appDecryptData($data, $key) {
     $decryption = new BLLEncryption();
     return $decryption->decryptData($data, $key);
+}
+
+//FUNCTION TO DECRYPT JOURNAL DATA
+function appDecryptJournal(BLLJournalEntry $journal, $key) {
+    $journal->username = appDecryptData($journal->username, $key);
+    $journal->date = appDecryptData($journal->date, $key);
+    $journal->weeding = appDecryptData($journal->weeding, $key);
+    $journal->reflection = appDecryptData($journal->reflection, $key);
+    $journal->planning = appDecryptData($journal->planning, $key);
+    $journal->noteTaking = appDecryptData($journal->noteTaking, $key);
+    $journal->questions = appDecryptData($journal->questions, $key);
+    return $journal;
 }
 
 //FUNCTION TO SET SESSSION LOG IN TOKENS
