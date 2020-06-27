@@ -1,4 +1,7 @@
 <?php
+//INCLUDING OBJECT CLASSES
+require_once("oo_bll.inc.php");
+
 //RENDER FORM FUNCTIONS
 function renderFormSignUp($errorEmpty, $errorUnconfirmed) {
 
@@ -323,4 +326,30 @@ function renderNumericOptions($min, $max) {
     }
 
     return $options;
+}
+
+//FUNCTIONS FOR RENDERING OBJECT DATA
+function renderJournalEntryData(BLLJournalEntry $entry, $count) {
+    $dataRender = <<<DATA
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title" data-target="#panel-{$count}" data-toggle="collapse">Journal Date: {$entry->date}</h3>
+    </div>
+    <div class="panel-collapse collapse" id="panel-{$count}">
+        <div class="panel-body">
+            <p><b>Weeding:</b></p>
+            <p>{$entry->weeding}</p>
+            <p><b>Reflection:</b></p>
+            <p>{$entry->reflection}</p>
+            <p><b>Planning:</b></p>
+            <p>{$entry->planning}</p>
+            <p><b>Note Taking:</b></p>
+            <p>{$entry->noteTaking}</p>
+            <p><b>Question:</b></p>
+            <p>{$entry->questions}</p>
+        </div>
+    </div>
+</div>
+DATA;
+    return $dataRender;
 }
