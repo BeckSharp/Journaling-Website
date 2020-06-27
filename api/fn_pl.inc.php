@@ -332,7 +332,7 @@ function renderNumericOptions($min, $max) {
 function renderJournalEntryData(BLLJournalEntry $entry, $count) {
     $dataRender = <<<DATA
 <div class="panel panel-primary">
-    <div class="panel-heading">
+    <div class="panel-heading pointer">
         <h3 class="panel-title" data-target="#panel-{$count}" data-toggle="collapse">Journal Date: {$entry->date}</h3>
     </div>
     <div class="panel-collapse collapse" id="panel-{$count}">

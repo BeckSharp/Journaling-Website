@@ -71,3 +71,7 @@ body {
 	margin-left: 2px;
 	text-align: center;
 }
+
+.pointer {
+	cursor: pointer;
+}
