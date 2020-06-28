@@ -8,6 +8,9 @@ function createPage() {
     $journalData = jsonLoadAllJournalEntries();
     $journalOutput = "";
 
+    $entryAdded = $_GET["entryAdded"] ?? "";
+    $successMessage = "";
+
     if (count($journalData) == 0) {
         //PRODUCING ERROR MESSAGE
         $journalOutput = file_get_contents("data/static/index/index_error_no_data.html");
@@ -20,7 +23,10 @@ function createPage() {
         $journalOutput = createJournalOutput($journalData);
     }
 
+    if ($entryAdded == "true") { $successMessage = file_get_contents("data/static/index/index_journal_entry_success.html"); }
+
     $content = <<<PAGE
+{$successMessage}
 {$journalOutput}
 PAGE;
     return $content;
