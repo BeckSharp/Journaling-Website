@@ -270,7 +270,10 @@ FORM;
     return $form;
 }
 
-function renderFormDeleteJournalEntry() {
+function renderFormDeleteJournalEntry($journalData) {
+    $errorMessage = "";
+    if (count($journalData) == 0) { $errorMessage = file_get_contents("data\static\settings\\form_delete_journal_data_error.html"); }
+
     $method = appFormMethod();
     $action = "app_delete_journal_entry.php";
 
@@ -281,6 +284,7 @@ function renderFormDeleteJournalEntry() {
 	        <h2 class="panel-title">Delete a journal entry here</h2>
         </div>
         <div class="panel-body">
+            {$errorMessage}
             Render for entry deletion goes here
         </div>
     </div>
