@@ -32,9 +32,7 @@ function appFormMethodIsPost() {
 
 //FUNCTION TO REPLACE ENTITIES FOR TAGS IN STRING
 function appReplaceEntityTags($data) {
-    $data = str_replace("<", "&lt;", $data);
-    $data = str_replace(">", "&gt;", $data);
-    return $data;
+    return htmlspecialchars($data);
 }
 
 //FUNCTION TO HASH DATA 
