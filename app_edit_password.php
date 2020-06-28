@@ -29,16 +29,7 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
         appRedirect("settings.php?pwordChanged=true");
     } else {
         //REDIRECT TO settings.php WITH ERROR MESSAGES
-        $url = "settings.php";
-        $errorCount = 0;
-        if (!isPasswordValid($oldPassword)) { 
-            $url .= "?pwordInvalid=true"; 
-            $errorCount++;
-        }
-        if (!isNewPasswordConfirmed($newPassword, $confirmationPassword)) { 
-            if ($errorCount > 0) { $url .= "&confirmationInvalid=true"; }
-            if ($errorCount == 0) { $url .= "?confirmationInvalid=true"; }
-        }
+        $url = createErrorMessageURL($oldPassword, $newPassword, $confirmationPassword);
         appRedirect($url);
     }
 } else {
@@ -61,4 +52,19 @@ function isPasswordValid($password) {
 function isNewPasswordConfirmed($password, $confirmation) {
     if ($password != $confirmation) { return false; }
     return true;
+}
+
+//FUNCTION TO CREATE URL WITH ERROR MESSAGES
+function createErrorMessageURL($oldPassword, $newPassword, $confirmationPassword) {
+    $url = "settings.php";
+    $errorCount = 0;
+    if (!isPasswordValid($oldPassword)) { 
+        $url .= "?pwordInvalid=true"; 
+        $errorCount++;
+    }
+    if (!isNewPasswordConfirmed($newPassword, $confirmationPassword)) { 
+        if ($errorCount > 0) { $url .= "&confirmationInvalid=true"; }
+        if ($errorCount == 0) { $url .= "?confirmationInvalid=true"; }
+    }
+    return $url;
 }
