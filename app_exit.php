@@ -9,9 +9,8 @@ $action = $_GET["action"] ?? "";
 session_start();
 
 if (appSessionIsSet() && $action == "exit") {
-    //DESTROYING THE CURRENT SESSION
+    //DESTROYING THE CURRENT SESSION & REDIRECTING THE USER
     appSessionDestroy();
-    //REDIRECTING USER AFTER LOGGING OUT
     appRedirect("logIn.php");
 } else {
     //REDIRECTING USER TO ERROR PAGE
