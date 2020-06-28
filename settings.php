@@ -4,16 +4,23 @@ include("api/api.inc.php");
 
 //PAGE GENERATION LOGIC
 function createPage() {
+    //RETRIEVING DATA FROM URL
     $errorPassword = $_GET["pwordInvalid"] ?? "";
     $errorConfirmation = $_GET["confirmationInvalid"] ?? "";
     $errorDate = $_GET["dateInvalid"] ?? "";
     $passwordSuccess = $_GET["pwordChanged"] ?? "";
     $dateSuccess = $_GET["dateRemoved"] ?? "";
 
+    //LOADING JOURNAL ENTRIES AND DECRYPTING THEIR DATE
+    $key = appDecryptSessionData($_SESSION["username"]);
+    $entries = jsonLoadAllJournalEntries();
+    $entries = decryptJournalDateOnly($entries, $key);
+
+    //SETTING PAGE CONTENT
     $successMessages = createSuccessMessages($passwordSuccess, $dateSuccess);
     $errorMessages = createErrorMessages($errorPassword, $errorConfirmation, $errorDate);
     $passwordForm = renderFormChangePassword();
-    $deletionForm = renderFormDeleteJournalEntry();
+    $deletionForm = renderFormDeleteJournalEntry($entries);
 
     $content = <<<PAGE
 {$successMessages}
@@ -22,6 +29,14 @@ function createPage() {
 {$deletionForm}
 PAGE;
     return $content;
+}
+
+//FUNCTION TO DECRYPT ONLY THE JOURNAL ENTRIES' DATE
+function decryptJournalDateOnly($journalEntries, $decryptionKey) {
+    foreach ($journalEntries as $entry) {
+        $entry->date = appDecryptData($entry->date, $decryptionKey);
+    }
+    return $journalEntries;
 }
 
 //FUNCTION TO RETURN HTML ERROR MESSAGES IF REQUIRED
