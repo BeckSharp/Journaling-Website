@@ -4,17 +4,14 @@ include("api/api.inc.php");
 
 //PAGE GENERATION LOGIC
 function createPage() {
-    $passwordSuccess = $_GET["pwordChanged"] ?? "";
     $errorPassword = $_GET["pwordInvalid"] ?? "";
     $errorConfirmation = $_GET["confirmationInvalid"] ?? "";
+    $errorDate = $_GET["dateInvalid"] ?? "";
+    $passwordSuccess = $_GET["pwordChanged"] ?? "";
+    $dateSuccess = $_GET["dateRemoved"] ?? "";
 
-    $errorMessages = "";
-    if ($errorPassword == "true") { $errorMessages .= file_get_contents("data\static\settings\password_invalid_error.html"); }
-    if ($errorConfirmation == "true") { $errorMessages .= file_get_contents("data\static\settings\password_confirmation_error.html"); }
-
-    $successMessages = "";
-    if ($passwordSuccess == "true") { $successMessages .= file_get_contents("data\static\settings\password_change_success.html");}
-
+    $successMessages = createSuccessMessages($passwordSuccess, $dateSuccess);
+    $errorMessages = createErrorMessages($errorPassword, $errorConfirmation, $errorDate);
     $passwordForm = renderFormChangePassword();
     $deletionForm = renderFormDeleteJournalEntry();
 
@@ -27,19 +24,31 @@ PAGE;
     return $content;
 }
 
+//FUNCTION TO RETURN HTML ERROR MESSAGES IF REQUIRED
+function createErrorMessages($errorPassword, $errorConfirmation, $errorDate) {
+    $messages = "";
+    if ($errorPassword == "true") { $messages .= file_get_contents("data\static\settings\password_invalid_error.html"); }
+    if ($errorConfirmation == "true") { $messages .= file_get_contents("data\static\settings\password_confirmation_error.html"); }
+    if ($errorDate == "true") { $messages .= file_get_contents("data\static\settings\date_invalid_error.html"); }
+    return $messages;
+}
+
+//FUNCTION TO RETURN HTML SUCCESS MESSAGES IF REQUIRED
+function createSuccessMessages($passwordSuccess, $dateSuccess) {
+    $messages = "";
+    if ($passwordSuccess == "true") { $messages .= file_get_contents("data\static\settings\password_change_success.html"); }
+    if ($dateSuccess == "true") { $messages .= file_get_contents("data\static\settings\date_removal_success.html"); }
+    return $messages;
+}
+
 //BUSINESS LOGIC
 session_start();
-if (!appSessionIsSet()) {
-    appRedirect("logIn.php");
-}
+if (!appSessionIsSet()) { appRedirect("logIn.php"); }
 
 $pagetitle = "Settings";
 $pagecontent = createPage();
-$pagefooter = "";
 
 //BUILDING HTML PAGE
 $page = new MasterPage($pagetitle);
 $page->setDynamic1($pagecontent);
-if(!empty($pagefooter))
-    $page->setDynamic2($pagefooter);
 $page->renderPage();
