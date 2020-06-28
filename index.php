@@ -6,22 +6,10 @@ include("api/api.inc.php");
 function createPage() {
 
     $journalData = jsonLoadAllJournalEntries();
-    $journalOutput = "";
+    $journalOutput = createJournalOutput($journalData);
 
     $entryAdded = $_GET["entryAdded"] ?? "";
     $successMessage = createSuccessMessage($entryAdded);
-
-    if (count($journalData) == 0) {
-        //PRODUCING ERROR MESSAGE
-        $journalOutput = file_get_contents("data/static/index/index_error_no_data.html");
-    } else {
-        //DECRYPTING USER'S JOURNAL DATA
-        $key = appDecryptSessionData($_SESSION["username"]);
-        $journalData = decryptJournalEntries($journalData, $key);
-
-        //RENDERING THE JOURNAL OUTPUT DATA
-        $journalOutput = createJournalOutput($journalData);
-    }
 
     $content = <<<PAGE
 {$successMessage}
@@ -30,6 +18,7 @@ PAGE;
     return $content;
 }
 
+//FUNCTION TO DECRYPT AND RETURN AN ARRAY OF OBJECTS
 function decryptJournalEntries($journalData, $key) {
     foreach ($journalData as $entry) {
         $entry = appDecryptJournal($entry, $key);
@@ -37,7 +26,16 @@ function decryptJournalEntries($journalData, $key) {
     return $journalData;
 }
 
+//FUNCTION TO RETURN HTML CODE BASED OFF OF THE INPUT OF AN ARRAY OF OBJECTS
 function createJournalOutput($journalData) {
+    if (count($journalData) == 0) { return file_get_contents("data/static/index/index_error_no_data.html"); }
+    $key = appDecryptSessionData($_SESSION["username"]);
+    $journalData = decryptJournalEntries($journalData, $key);
+    return createJournalAccordian($journalData);
+}
+
+//FUNCTION TO CREATE HTML CODE FOR AN ARRAY OF OBJECTS
+function createJournalAccordian($journalData) {
     $count = 0;
     $journalOutput = "<div class=\"panel-group\" id=\"accordian\">";
     foreach ($journalData as $entry) {
@@ -48,6 +46,7 @@ function createJournalOutput($journalData) {
     return $journalOutput;
 }
 
+//FUNCTION TO RETURN A HTML SUCCESS MESSAGE IF REQUIRED
 function createSuccessMessage($entryAdded) {
     if ($entryAdded != "true") { return "";}
     return file_get_contents("data/static/index/index_journal_entry_success.html");
@@ -55,17 +54,12 @@ function createSuccessMessage($entryAdded) {
 
 //BUSINESS LOGIC
 session_start();
-if (!appSessionIsSet()) {
-    appRedirect("logIn.php");
-}
+if (!appSessionIsSet()) { appRedirect("logIn.php"); }
 
 $pagetitle = "Home Page";
 $pagecontent = createPage();
-$pagefooter = "";
 
 //BUILDING HTML PAGE
 $page = new MasterPage($pagetitle);
 $page->setDynamic1($pagecontent);
-if(!empty($pagefooter))
-    $page->setDynamic2($pagefooter);
 $page->renderPage();
