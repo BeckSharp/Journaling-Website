@@ -9,7 +9,7 @@ function createPage() {
     $journalOutput = "";
 
     $entryAdded = $_GET["entryAdded"] ?? "";
-    $successMessage = "";
+    $successMessage = createSuccessMessage($entryAdded);
 
     if (count($journalData) == 0) {
         //PRODUCING ERROR MESSAGE
@@ -22,8 +22,6 @@ function createPage() {
         //RENDERING THE JOURNAL OUTPUT DATA
         $journalOutput = createJournalOutput($journalData);
     }
-
-    if ($entryAdded == "true") { $successMessage = file_get_contents("data/static/index/index_journal_entry_success.html"); }
 
     $content = <<<PAGE
 {$successMessage}
@@ -48,6 +46,11 @@ function createJournalOutput($journalData) {
     }
     $journalOutput .= "</div>";
     return $journalOutput;
+}
+
+function createSuccessMessage($entryAdded) {
+    if ($entryAdded != "true") { return "";}
+    return file_get_contents("data/static/index/index_journal_entry_success.html");
 }
 
 //BUSINESS LOGIC
