@@ -3,20 +3,11 @@
 require_once("oo_bll.inc.php");
 
 //RENDER FORM FUNCTIONS
-function renderFormSignUp($errorEmpty, $errorUnconfirmed) {
-
-    $errorEmptyMessage = "";
-    $errorUnconfirmedMessage = "";
-
-    if ($errorEmpty == "true") { $errorEmptyMessage =  file_get_contents("data\static\signUp\sign_up_error_empty.html"); }
-    if ($errorUnconfirmed == "true") { $errorUnconfirmedMessage = file_get_contents("data\static\signUp\sign_up_error_unconfirmed.html"); }
-
+function renderFormSignUp() {
     $method = appFormMethod();
     $action = "app_create_profile.php";
 
     $form = <<<FORM
-{$errorEmptyMessage}
-{$errorUnconfirmedMessage}
 <div class="row details">
     <div class="panel panel-primary">
         <div class="panel-heading">

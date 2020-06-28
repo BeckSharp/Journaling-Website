@@ -7,31 +7,34 @@ function createPage() {
     $errorEmpty = $_GET["empty"] ?? "";
     $errorUnconfirmed = $_GET["unconfirmed"] ?? "";
 
-    $form = renderFormSignUp($errorEmpty, $errorUnconfirmed);
+    $errorMessages = createErrorMessages($errorEmpty, $errorUnconfirmed);
+    $form = renderFormSignUp();
 
     $content = <<<PAGE
+{$errorMessages}
 {$form}
 PAGE;
     return $content;
 }
 
-//BUSINESS LOGIC
-if(appProfileRegisteredCheck()) {
-    appRedirect("logIn.php");
+//FUNCTION TO RETURN HTML ERROR MESSAGES IF REQUIRED
+function createErrorMessages($errorEmpty, $errorUnconfirmed) {
+    $messages = "";
+    if ($errorEmpty == "true") { $messages .= file_get_contents("data\static\signUp\sign_up_error_empty.html"); }
+    if ($errorUnconfirmed == "true") { $messages .= file_get_contents("data\static\signUp\sign_up_error_unconfirmed.html"); }
+    return $messages;
 }
 
+//BUSINESS LOGIC
+if(appProfileRegisteredCheck()) { appRedirect("logIn.php"); }
+
 session_start();
-if (appSessionIsSet()) {
-    appRedirect("index.php");
-}
+if (appSessionIsSet()) { appRedirect("index.php"); }
 
 $pagetitle = "Sign Up";
 $pagecontent = createPage();
-$pagefooter = "";
 
 //BUILDING HTML PAGE
 $page = new MasterPage($pagetitle);
 $page->setDynamic1($pagecontent);
-if(!empty($pagefooter))
-    $page->setDynamic2($pagefooter);
 $page->renderPage();
