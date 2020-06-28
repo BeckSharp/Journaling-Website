@@ -31,9 +31,7 @@ if (appFormMethodIsPost() && !appProfileRegisteredCheck()) {
         appRedirect("logIn.php?registered=true");
     } else {
         //REDIRECT TO signUp.php WITH ERROR MESSAGES
-        $url = "signUp.php?data=invalid";
-        if (!isDataNotEmpty($username, $password, $confirmation)) { $url .= "&empty=true"; }
-        if (!isPasswordConfirmed($password, $confirmation)) { $url .= "&unconfirmed=true"; }
+        $url = createErrorMessageURL($username, $password, $confirmation);
         appRedirect($url);
     }
 } else {
@@ -58,4 +56,19 @@ function isDataNotEmpty($username, $password, $confirmation) {
 function isPasswordConfirmed($password, $confirmation) {
     if ($password != $confirmation) { return false; }
     return true;
+}
+
+//FUNCTION TO CREATE URL WITH ERROR MESSAGES
+function createErrorMessageURL($username, $password, $confirmation) {
+    $url = "signUp.php";
+    $errorCount = 0;
+    if (!isDataNotEmpty($username, $password, $confirmation)) { 
+        $url .= "?empty=true"; 
+        $errorCount++;
+    }
+    if (!isPasswordConfirmed($password, $confirmation)) { 
+        if ($errorCount > 0) { $url .= "&unconfirmed=true"; }
+        if ($errorCount == 0) { $url .= "?unconfirmed=true"; }
+    }
+    return $url;
 }
