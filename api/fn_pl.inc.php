@@ -70,19 +70,11 @@ FORM;
     return $form;
 }
 
-function renderFormLogIn($errorData, $signUpSuccess) {
-    $errorDataMessage = "";
-    $signUpSuccessMessage = "";
-
-    if ($errorData == "true") { $errorDataMessage = file_get_contents("data\static\logIn\log_in_error_data.html"); }
-    if ($signUpSuccess == "true") { $signUpSuccessMessage = file_get_contents("data\static\signUp\sign_up_success.html"); }
-
+function renderFormLogIn() {
     $method = appFormMethod();
     $action = "app_entry.php";
 
     $form = <<<FORM
-{$signUpSuccessMessage}
-{$errorDataMessage}
 <div class="row details">
     <div class="panel panel-primary">
         <div class="panel-heading">
