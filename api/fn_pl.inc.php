@@ -109,13 +109,7 @@ FORM;
     return $form;
 }
 
-function renderFormJournalEntry($errorEmpty, $errorDate) {
-    $errorEmptyMessage = "";
-    $errorDateMessage = "";
-
-    if ($errorEmpty == "true") {$errorEmptyMessage = file_get_contents("data\static\journal\journal_entry_error_empty.html"); }
-    if ($errorDate == "true") {$errorDateMessage = file_get_contents("data\static\journal\journal_entry_error_date.html"); }
-
+function renderFormJournalEntry() {
     $currentYear = date("Y");
     $dayOptions = renderNumericOptions(1, 31);
     $monthOptions = renderNumericOptions(1, 12);
@@ -125,8 +119,6 @@ function renderFormJournalEntry($errorEmpty, $errorDate) {
     $action = "app_create_journal_entry.php";
 
     $form = <<<FORM
-{$errorEmptyMessage}
-{$errorDateMessage}
 <div class="row details">
     <div class="panel panel-primary">
         <div class="panel-heading">
