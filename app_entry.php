@@ -17,16 +17,15 @@ if (appFormMethodIsPost() && !appSessionIsSet()) {
 
     //VALIDATING CREDENTIALS ENTERED ARE CORRECT
     if (isLogInValid($username, $password)) {
-        //SET SESSION TOKENS
+        //SETTING SESSION TOKENS & REDIRECTING USER
         appSetSessionLogInTokens($username);
-
-        //REDIRECT USER TO index.php
         appRedirect("index.php");
     } else {
         //REDIRECT TO logIn.php WITH ERROR MESSAGE
         appRedirect("logIn.php?invalid=true");
     }
 } else {
+    //REDIRECT USER TO ERROR PAGE
     appRedirect("app_error.php");
 }
 
