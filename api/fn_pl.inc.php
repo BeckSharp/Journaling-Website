@@ -256,9 +256,9 @@ function renderFormChangePassword() {
 
                 <!-- Button -->
                 <div class="form-group">
-                <div class="col-md-4 col-md-offset-4">
-                    <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Change</button>
-                </div>
+                    <div class="col-md-4 col-md-offset-4">
+                        <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Change</button>
+                    </div>
                 </div>
 
                 </fieldset>
@@ -271,11 +271,42 @@ FORM;
 }
 
 function renderFormDeleteJournalEntry($journalData) {
-    $errorMessage = "";
-    if (count($journalData) == 0) { $errorMessage = file_get_contents("data\static\settings\\form_delete_journal_data_error.html"); }
+    $content = "";
 
-    $method = appFormMethod();
-    $action = "app_delete_journal_entry.php";
+    if (count($journalData) == 0) { 
+        $content = file_get_contents("data\static\settings\\form_delete_journal_data_error.html"); 
+    } else {
+        $options = renderJournalDateOptions($journalData);
+        $method = appFormMethod();
+        $action = "app_delete_journal_entry.php";
+        
+        $content = <<<FORM
+<form class="form-horizontal" method="{$method}" action="{$action}">
+    <fieldset>
+
+        <!-- Select Basic -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="date">Date (DD/MM/YYYY)</label>
+            <div>
+                <div class="col-md-4">
+                    <select id="date" name="date" class="form-control">
+                        {$options}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-4">
+                    <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+FORM;
+    }
 
     $form = <<<FORM
 <div class="row details">
@@ -284,8 +315,7 @@ function renderFormDeleteJournalEntry($journalData) {
 	        <h2 class="panel-title">Delete a journal entry here</h2>
         </div>
         <div class="panel-body">
-            {$errorMessage}
-            Render for entry deletion goes here
+            {$content}
         </div>
     </div>
 </div>
@@ -304,6 +334,16 @@ function renderNumericOptions($min, $max) {
         }
     }
 
+    return $options;
+}
+
+function renderJournalDateOptions($journalData) {
+    $options = "";
+    $count = 0;
+    foreach ($journalData as $entry) {
+        $options .= "<option value=\"{$count}\">{$entry->date}</option>";
+        $count++;
+    }
     return $options;
 }
 
