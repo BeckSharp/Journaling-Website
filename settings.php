@@ -7,7 +7,7 @@ function createPage() {
     //RETRIEVING DATA FROM URL
     $errorPassword = $_GET["pwordInvalid"] ?? "";
     $errorConfirmation = $_GET["confirmationInvalid"] ?? "";
-    $errorDate = $_GET["dateInvalid"] ?? "";
+    $errorDate = $_GET["dateError"] ?? "";
     $passwordSuccess = $_GET["pwordChanged"] ?? "";
     $dateSuccess = $_GET["dateRemoved"] ?? "";
 

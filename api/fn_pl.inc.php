@@ -339,7 +339,7 @@ function renderNumericOptions($min, $max) {
 
 function renderJournalDateOptions($journalData) {
     $options = "";
-    $count = 0;
+    $count = 1;
     foreach ($journalData as $entry) {
         $options .= "<option value=\"{$count}\">{$entry->date}</option>";
         $count++;
