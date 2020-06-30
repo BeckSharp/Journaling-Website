@@ -328,6 +328,7 @@ function renderNumericOptions($min, $max) {
     $options = "";
 
     for ($i = $min; $i <= $max; $i++) {
+        if ($i < 10) { $i = "0" . strval($i); }
         $options .= "<option value=\"{$i}\">{$i}</option>";
         if ($i != $max) {
             $options .= "\n\t\t\t\t\t";
