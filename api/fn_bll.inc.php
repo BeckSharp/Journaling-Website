@@ -77,6 +77,18 @@ function appDecryptJournal(BLLJournalEntry $journal, $key) {
     return $journal;
 }
 
+//FUNCTION TO CLEAN JOURNAL ENTRY DATA
+function appCleanJournalData(BLLJournalEntry $journal) {
+    $journal->username = appReplaceEntityTags($journal->username);
+    $journal->date = appReplaceEntityTags($journal->date);
+    $journal->weeding = appReplaceEntityTags($journal->weeding);
+    $journal->reflection = appReplaceEntityTags($journal->reflection);
+    $journal->planning = appReplaceEntityTags($journal->planning);
+    $journal->noteTaking = appReplaceEntityTags($journal->noteTaking);
+    $journal->questions = appReplaceEntityTags($journal->questions);
+    return $journal;
+}
+
 //FUNCTION TO SET SESSSION LOG IN TOKENS
 function appSetSessionLogInTokens($username) {
     $username = appEncryptSessionData($username);
