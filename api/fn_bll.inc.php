@@ -65,6 +65,18 @@ function appDecryptData($data, $key) {
     return $decryption->decryptData($data, $key);
 }
 
+//FUNCTION TO ENCRYPT JOURNAL DATA
+function appEncryptJournal(BLLJournalEntry $journal, $key) {
+    $journal->username = appEncryptData($journal->username, $key);
+    $journal->date = appEncryptData($journal->date, $key);
+    $journal->weeding = appEncryptData($journal->weeding, $key);
+    $journal->reflection = appEncryptData($journal->reflection, $key);
+    $journal->planning = appEncryptData($journal->planning, $key);
+    $journal->noteTaking = appEncryptData($journal->noteTaking, $key);
+    $journal->questions = appEncryptData($journal->questions, $key);
+    return $journal;
+}
+
 //FUNCTION TO DECRYPT JOURNAL DATA
 function appDecryptJournal(BLLJournalEntry $journal, $key) {
     $journal->username = appDecryptData($journal->username, $key);
