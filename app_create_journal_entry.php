@@ -5,42 +5,27 @@ include("api/api.inc.php");
 session_start();
 
 if (appFormMethodIsPost() && appSessionIsSet()) {
-    //RETRIEVING POSTED DATA
-    $dateDay = $_POST["dateDay"] ?? "";
-    $dateMonth = $_POST["dateMonth"] ?? "";
-    $dateYear = $_POST["dateYear"] ?? "";
-    $weeding = $_POST["weeding"] ?? "";
-    $reflection = $_POST["reflection"] ?? "";
-    $planning = $_POST["planning"] ?? "";
-    $notes = $_POST["notes"] ?? "";
-    $question = $_POST["question"] ?? "";
+    //RETRIEVING POSTED DATA & ADDING IT TO OBJECT
+    $journalEntry = new BLLJournalEntry();
+    $journalEntry->username = "username";
+    $journalEntry->date = createDate($_POST["dateDay"] ?? "", $_POST["dateMonth"] ?? "", $_POST["dateYear"] ?? "");
+    $journalEntry->weeding = $_POST["weeding"] ?? "";
+    $journalEntry->reflection = $_POST["reflection"] ?? "";
+    $journalEntry->planning = $_POST["planning"] ?? "";
+    $journalEntry->noteTaking = $_POST["notes"] ?? "";
+    $journalEntry->questions = $_POST["question"] ?? "";
 
     //REMOVING MALICIOUS TEXT
-    $dateDay = appReplaceEntityTags($dateDay);
-    $dateMonth = appReplaceEntityTags($dateMonth);
-    $dateYear = appReplaceEntityTags($dateYear);
-    $weeding = appReplaceEntityTags($weeding);
-    $reflection = appReplaceEntityTags($reflection);
-    $planning = appReplaceEntityTags($planning);
-    $notes = appReplaceEntityTags($notes);
-    $question = appReplaceEntityTags($question);
+    $journalEntry = appCleanJournalData($journalEntry);
 
-    if (isJournalEntryValid($dateDay, $dateMonth, $dateYear, $weeding, $reflection, $planning, $notes, $question)) {
-        //CREATE DATE USING POSTED DATA
-        $date = createDate($dateDay, $dateMonth, $dateYear);
+    if (isJournalEntryValid($journalEntry)) {
 
-        //CREATING JOURNAL ENTRY OBJECT WITH ENCRYPTED DATA
+        //RETRIEVING USERNAME FROM SESSION AND ADDING TO JOURNAL
         $key = appDecryptSessionData($_SESSION["username"]);
-        $journalEntry = new BLLJournalEntry;
-        $journalEntry->username = appEncryptData($key, $key);
-        $journalEntry->date = appEncryptData($date, $key);
-        $journalEntry->weeding = appEncryptData($weeding, $key);
-        $journalEntry->reflection = appEncryptData($reflection, $key);
-        $journalEntry->planning = appEncryptData($planning, $key);
-        $journalEntry->noteTaking = appEncryptData($notes, $key);
-        $journalEntry->questions = appEncryptData($question, $key);
-
-        //WRITE DATA TO JSON
+        $journalEntry->username = $key;
+        
+        //ENCRYPTING JOURNAL & WRITING DATA TO JSON
+        $journalEntry = appEncryptJournal($journalEntry, $key);
         $saveData = json_encode($journalEntry).PHP_EOL;
         $fileContent = file_get_contents("data/json/entries.json");
         $fileContent .= $saveData;
@@ -53,11 +38,11 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
         //REDIRECT USER WITH ERROR MESSAGE
         $url = "journalEntry.php";
         $errorCount = 0;
-        if (!isDataNotEmpty($dateDay, $dateMonth, $dateYear, $weeding, $reflection, $planning, $notes, $question)) {
+        if (!isDataNotEmpty($journalEntry)) {
             $url .= "?empty=true"; 
             $errorCount++;
         }
-        if (!isDateValid($dateDay, $dateMonth, $dateYear) || isDateTaken($dateDay, $dateMonth, $dateYear)) {
+        if (!isDateValid($journalEntry->date) || isDateTaken($journalEntry->date)) {
             if ($errorCount > 0) { $url .= "&date=true"; }
             if ($errorCount == 0) { $url .= "?date=true"; }
         }
@@ -74,35 +59,32 @@ function createDate($day, $month, $year) {
 }
 
 //FUNCTIONS TO VALIDATE DATA
-function isJournalEntryValid($day, $month, $year, $weeding, $reflection, $planning, $notes, $question) {
-    if (!isDataNotEmpty($day, $month, $year, $weeding, $reflection, $planning, $notes, $question)) { return false; }
-    if (!isDateValid($day, $month, $year)) { return false; }
-    if (isDateTaken($day, $month, $year)) { return false; }
+function isJournalEntryValid(BLLJournalEntry $journal) {
+    if (!isDataNotEmpty($journal)) { return false; }
+    if (!isDateValid($journal->date)) { return false; }
+    if (isDateTaken($journal->date)) { return false; }
     return true;
 }
 
-function isDataNotEmpty($day, $month, $year, $weeding, $reflection, $planning, $notes, $question) {
-    if (empty($day)) { return false; }
-    if (empty($month)) { return false; }
-    if (empty($year)) { return false; }
-    if (empty($weeding)) { return false; }
-    if (empty($reflection)) { return false; }
-    if (empty($planning)) { return false; }
-    if (empty($notes)) { return false; }
-    if (empty($question)) { return false; }
+function isDataNotEmpty(BLLJournalEntry $journal) {
+    if (empty($journal->date)) { return false; }
+    if (empty($journal->weeding)) { return false; }
+    if (empty($journal->reflection)) { return false; }
+    if (empty($journal->planning)) { return false; }
+    if (empty($journal->noteTaking)) { return false; }
+    if (empty($journal->questions)) { return false; }
     return true;
 }
 
-function isDateValid($day, $month, $year) {
-    if (!checkdate($month, $day, $year)) { return false; }
-    return true;
+function isDateValid($date, $format = 'd-m-Y') {
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) === $date;
 }
 
-function isDateTaken($day, $month, $year) {
+function isDateTaken($date) {
     $entries = jsonLoadAllJournalEntries();
     if (count($entries) == 0) { return false; }
 
-    $date = createDate($day, $month, $year);
     $key = appDecryptSessionData($_SESSION["username"]);
     $encryptedDate = appEncryptData($date, $key);
 
