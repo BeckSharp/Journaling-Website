@@ -14,7 +14,7 @@ function createPage() {
     //LOADING JOURNAL ENTRIES AND DECRYPTING THEIR DATE
     $key = appDecryptSessionData($_SESSION["username"]);
     $entries = jsonLoadAllJournalEntries();
-    $entries = decryptJournalDateOnly($entries, $key);
+    $entries = appDecryptJournalDateOnly($entries, $key);
 
     //SETTING PAGE CONTENT
     $successMessages = createSuccessMessages($passwordSuccess, $dateSuccess);
@@ -29,14 +29,6 @@ function createPage() {
 {$deletionForm}
 PAGE;
     return $content;
-}
-
-//FUNCTION TO DECRYPT ONLY THE JOURNAL ENTRIES' DATE
-function decryptJournalDateOnly($journalEntries, $decryptionKey) {
-    foreach ($journalEntries as $entry) {
-        $entry->date = appDecryptData($entry->date, $decryptionKey);
-    }
-    return $journalEntries;
 }
 
 //FUNCTION TO RETURN HTML ERROR MESSAGES IF REQUIRED

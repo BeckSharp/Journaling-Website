@@ -24,12 +24,19 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
         $key = appDecryptSessionData($_SESSION["username"]);
         $journalEntry->username = $key;
         
-        //ENCRYPTING JOURNAL & WRITING DATA TO JSON
+        //ENCRYPTING ENTRY & ADDING IT TO JOURNAL
         $journalEntry = appEncryptJournal($journalEntry, $key);
-        $saveData = json_encode($journalEntry).PHP_EOL;
-        $fileContent = file_get_contents("data/json/entries.json");
-        $fileContent .= $saveData;
-        file_put_contents("data/json/entries.json", $fileContent);
+        $journalData = jsonLoadAllJournalEntries();
+        $journalData[] = $journalEntry;
+
+        //DECRYPTING DATE OF ALL ENTRIES FOR SORTING
+        $journalData = appDecryptJournalDateOnly($journalData, $key);
+        appQuickSortJournalEntries($journalData, 0, count($journalData) - 1);
+
+        //RE-ENCRYPTING DATA & WRITING TO JSON
+        $journalData = appEncryptJournalDateOnly($journalData, $key);
+        $saveData = appWriteJsonData($journalData);
+        file_put_contents("data/json/entries.json", $saveData);
 
         //REDIRECT USER WITH SUCCESS MESSAGE
         appRedirect("index.php?entryAdded=true");

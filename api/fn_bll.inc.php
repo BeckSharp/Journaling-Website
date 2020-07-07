@@ -89,6 +89,23 @@ function appDecryptJournal(BLLJournalEntry $journal, $key) {
     return $journal;
 }
 
+
+//FUNCTION TO DECRYPT ONLY THE JOURNAL ENTRIES' DATE
+function appDecryptJournalDateOnly($journalEntries, $decryptionKey) {
+    foreach ($journalEntries as $entry) {
+        $entry->date = appDecryptData($entry->date, $decryptionKey);
+    }
+    return $journalEntries;
+}
+
+//FUNCTION TO ENCRYPT ONLY THE JOURNAL ENTRIES' DATE
+function appEncryptJournalDateOnly($journalEntries, $encryptionKey) {
+    foreach ($journalEntries as $entry) {
+        $entry->date = appEncryptData($entry->date, $encryptionKey);
+    }
+    return $journalEntries;
+}
+
 //FUNCTION TO CLEAN JOURNAL ENTRY DATA
 function appCleanJournalData(BLLJournalEntry $journal) {
     $journal->username = appReplaceEntityTags($journal->username);
@@ -99,6 +116,38 @@ function appCleanJournalData(BLLJournalEntry $journal) {
     $journal->noteTaking = appReplaceEntityTags($journal->noteTaking);
     $journal->questions = appReplaceEntityTags($journal->questions);
     return $journal;
+}
+
+//FUNCTIONS TO SORT JOURNAL ENTRIES ARRAY
+function appQuickSortJournalEntries(&$array, $left, $right) {
+    if($left < $right) {
+        $pivotIndex = partition($array, $left, $right);
+        appQuickSortJournalEntries($array, $left, $pivotIndex - 1 );
+        appQuickSortJournalEntries($array, $pivotIndex, $right);
+    }
+}
+
+function partition(&$array, $left, $right) {
+    $pivotIndex = floor($left + ($right - $left) / 2);
+    $pivotValue = strtotime($array[$pivotIndex]->date);
+    $i = $left;
+    $j = $right;
+    while ($i <= $j) {
+        while (strtotime($array[$i]->date) < $pivotValue) {
+            $i++;
+        }
+        while (strtotime($array[$j]->date) > $pivotValue) {
+            $j--;
+        }
+        if ($i <= $j ) {
+            $temp = $array[$i];
+            $array[$i] = $array[$j];
+            $array[$j] = $temp;
+            $i++;
+            $j--;
+        }
+    }
+    return $i;
 }
 
 //FUNCTION TO SET SESSSION LOG IN TOKENS
@@ -118,4 +167,13 @@ function appSessionIsSet() {
 function appSessionDestroy() {
     session_unset();
     session_destroy();
+}
+
+//FUNCTION TO CONVERT JOURNAL DATA TO JSON TEXT
+function appWriteJsonData($journalData) {
+    $saveData = "";
+    foreach ($journalData as $entry) {
+        $saveData .= json_encode($entry).PHP_EOL;
+    }
+    return $saveData;
 }
