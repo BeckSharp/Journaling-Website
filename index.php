@@ -38,8 +38,8 @@ function createJournalOutput($journalData) {
 function createJournalAccordian($journalData) {
     $count = 0;
     $journalOutput = "<div class=\"panel-group\" id=\"accordian\">";
-    foreach ($journalData as $entry) {
-        $journalOutput .= renderJournalEntryData($entry, $count);
+    for ($i = count($journalData) - 1; $i >= 0; $i--) {
+        $journalOutput .= renderJournalEntryData($journalData[$i], $count);
         $count++;
     }
     $journalOutput .= "</div>";
