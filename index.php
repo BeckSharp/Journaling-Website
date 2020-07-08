@@ -23,19 +23,7 @@ function createJournalOutput($journalData) {
     if (count($journalData) == 0) { return file_get_contents("data/static/index/index_error_no_data.html"); }
     $key = appDecryptSessionData($_SESSION["username"]);
     $journalData = appDecryptJournalEntries($journalData, $key);
-    return createJournalAccordian($journalData);
-}
-
-//FUNCTION TO CREATE HTML CODE FOR AN ARRAY OF OBJECTS
-function createJournalAccordian($journalData) {
-    $count = 0;
-    $journalOutput = "<div class=\"panel-group\" id=\"accordian\">";
-    for ($i = count($journalData) - 1; $i >= 0; $i--) {
-        $journalOutput .= renderJournalEntryData($journalData[$i], $count);
-        $count++;
-    }
-    $journalOutput .= "</div>";
-    return $journalOutput;
+    return renderJournalAccordian($journalData);
 }
 
 //FUNCTION TO RETURN A HTML SUCCESS MESSAGE IF REQUIRED

@@ -348,6 +348,18 @@ function renderJournalDateOptions($journalData) {
     return $options;
 }
 
+//FUNCTION TO CREATE ACCORDIAN FOR AN ARRAY OF JOURNAL ENTRIES
+function renderJournalAccordian($journalData) {
+    $count = 0;
+    $journalOutput = "<div class=\"panel-group\" id=\"accordian\">";
+    for ($i = count($journalData) - 1; $i >= 0; $i--) {
+        $journalOutput .= renderJournalEntryData($journalData[$i], $count);
+        $count++;
+    }
+    $journalOutput .= "</div>";
+    return $journalOutput;
+}
+
 //FUNCTIONS FOR RENDERING OBJECT DATA
 function renderJournalEntryData(BLLJournalEntry $entry, $count) {
     $dataRender = <<<DATA
