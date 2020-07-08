@@ -15,10 +15,7 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
         unset($journalData[$option - 1]);
 
         //WRITE DATA TO JSON & REDIRECT USER WITH SUCCESS MESSAGE
-        $saveData = "";
-        foreach ($journalData as $entry) {
-            $saveData .= json_encode($entry).PHP_EOL;
-        }
+        $saveData = appWriteJsonData($journalData);
         file_put_contents("data/json/entries.json", $saveData);
         appRedirect("settings.php?dateRemoved=true");
     } else {
