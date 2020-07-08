@@ -19,7 +19,6 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
     $journalEntry = appCleanJournalData($journalEntry);
 
     if (isJournalEntryValid($journalEntry)) {
-
         //RETRIEVING USERNAME FROM SESSION AND ADDING TO JOURNAL
         $key = appDecryptSessionData($_SESSION["username"]);
         $journalEntry->username = $key;
@@ -43,16 +42,7 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
     }
     else {
         //REDIRECT USER WITH ERROR MESSAGE
-        $url = "journalEntry.php";
-        $errorCount = 0;
-        if (!isDataNotEmpty($journalEntry)) {
-            $url .= "?empty=true"; 
-            $errorCount++;
-        }
-        if (!isDateValid($journalEntry->date) || isDateTaken($journalEntry->date)) {
-            if ($errorCount > 0) { $url .= "&date=true"; }
-            if ($errorCount == 0) { $url .= "?date=true"; }
-        }
+        $url = createErrorMessageURL($journalEntry);
         appRedirect($url);
     }
 } else {
@@ -100,4 +90,19 @@ function isDateTaken($date) {
     }
 
     return false;
+}
+
+//FUNCTION TO CREATE URL WITH ERROR MESSAGES
+function createErrorMessageURL(BLLJournalEntry $entry) {
+    $url = "journalEntry.php";
+    $errorCount = 0;
+    if (!isDataNotEmpty($entry)) {
+        $url .= "?empty=true"; 
+        $errorCount++;
+    }
+    if (!isDateValid($entry->date) || isDateTaken($entry->date)) {
+        if ($errorCount > 0) { $url .= "&date=true"; }
+        if ($errorCount == 0) { $url .= "?date=true"; }
+    }
+    return $url;
 }
