@@ -89,6 +89,13 @@ function appDecryptJournal(BLLJournalEntry $journal, $key) {
     return $journal;
 }
 
+//FUNCTION TO DECRYPT AND RETURN AN ARRAY OF OBJECTS
+function appDecryptJournalEntries($journalData, $key) {
+    foreach ($journalData as $entry) {
+        $entry = appDecryptJournal($entry, $key);
+    }
+    return $journalData;
+}
 
 //FUNCTION TO DECRYPT ONLY THE JOURNAL ENTRIES' DATE
 function appDecryptJournalDateOnly($journalEntries, $decryptionKey) {

@@ -18,19 +18,11 @@ PAGE;
     return $content;
 }
 
-//FUNCTION TO DECRYPT AND RETURN AN ARRAY OF OBJECTS
-function decryptJournalEntries($journalData, $key) {
-    foreach ($journalData as $entry) {
-        $entry = appDecryptJournal($entry, $key);
-    }
-    return $journalData;
-}
-
 //FUNCTION TO RETURN HTML CODE BASED OFF OF THE INPUT OF AN ARRAY OF OBJECTS
 function createJournalOutput($journalData) {
     if (count($journalData) == 0) { return file_get_contents("data/static/index/index_error_no_data.html"); }
     $key = appDecryptSessionData($_SESSION["username"]);
-    $journalData = decryptJournalEntries($journalData, $key);
+    $journalData = appDecryptJournalEntries($journalData, $key);
     return createJournalAccordian($journalData);
 }
 
