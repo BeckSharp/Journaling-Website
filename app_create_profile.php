@@ -54,8 +54,7 @@ function isDataNotEmpty($username, $password, $confirmation) {
 }
 
 function isPasswordConfirmed($password, $confirmation) {
-    if ($password != $confirmation) { return false; }
-    return true;
+    return appStringsMatch($password, $confirmation);
 }
 
 //FUNCTION TO CREATE URL WITH ERROR MESSAGES

@@ -177,3 +177,9 @@ function appWriteJsonData($journalData) {
     }
     return $saveData;
 }
+
+//FUNCTION TO VALIDATE WHETHER TWO STRINGS ARE EQUAL
+function appStringsMatch($string1, $string2) {
+    if ($string1 != $string2) { return false; }
+    return true;
+}
