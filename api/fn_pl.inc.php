@@ -21,7 +21,7 @@ function renderFormSignUp() {
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="username">Username</label>
                         <div class="col-md-4">
-                            <input id="username" name="username" type="text" 
+                            <input id="username" name="username" type="password" 
                             placeholder="Enter your username here" class="form-control input-md" required>
                         </div>
                     </div>
@@ -79,7 +79,7 @@ function renderFormLogIn() {
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="username">Username</label>
                         <div class="col-md-4">
-                            <input id="username" name="username" type="text" 
+                            <input id="username" name="username" type="password" 
                             placeholder="Enter your username here" class="form-control input-md" required>
                         </div>
                     </div>
