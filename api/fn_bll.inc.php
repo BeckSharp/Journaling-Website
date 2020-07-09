@@ -168,6 +168,16 @@ function appSetSessionLogInTokens($username) {
 function appSessionIsSet() {
     if (!isset($_SESSION["username"])) { return false; }
     if (!isset($_SESSION["entered"])) { return false; }
+    if (!appSessionUsernameIsValid($_SESSION["username"])) { return false; }
+    return true;
+}
+
+//FUNCTION TO CHECK SESSION USERNAME IS VALID
+function appSessionUsernameIsValid($username) {
+    $profile = jsonLoadProfile();
+    $username = appDecryptSessionData($username);
+    $username = appEncryptData($username, $username);
+    if ($profile->username != $username) { return false; }
     return true;
 }
 
