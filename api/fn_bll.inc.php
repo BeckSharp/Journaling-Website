@@ -166,6 +166,7 @@ function appSetSessionLogInTokens($username) {
 
 //FUNCTION TO CHECK IF A SESSION IS ACTIVE
 function appSessionIsSet() {
+    if (!isset($_SESSION["username"])) { return false; }
     if (!isset($_SESSION["entered"])) { return false; }
     return true;
 }
