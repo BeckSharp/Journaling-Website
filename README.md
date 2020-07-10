@@ -12,7 +12,6 @@
 * Give myself a passion project to work on over the summer holiday period.
 * Gain more experience in web development.
 * Improve my security practice in web development.
-* Responsive webiste including scalability for mobile-versions.
 
 #### How to use website to benefit your productivity.
 To maximise the impact the website has on you, use it daily.
@@ -48,6 +47,7 @@ To maximise the impact the website has on you, use it daily.
 
 #### Other Features:
 * Website application only requires appache server to work. (recommended server localhoster is XAMPP)
+* Responsive webiste including scalability for mobile-versions.
 
 ## Languages:
 * PHP
