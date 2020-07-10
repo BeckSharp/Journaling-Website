@@ -48,6 +48,7 @@ To maximise the impact the website has on you, use it daily.
 #### Other Features:
 * Website application only requires appache server to work. (recommended server localhoster is XAMPP)
 * Responsive webiste including scalability for mobile-versions.
+* Website does not require internet connection.
 
 ## Languages:
 * PHP
