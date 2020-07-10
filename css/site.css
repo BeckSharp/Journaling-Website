@@ -26,12 +26,6 @@ body {
 	border-top: 1px solid #e5e5e5;
 }
 
-@media ( min-width : 800px) {
-	.container {
-		max-width: 1200px;
-	}
-}
-
 .details {
 	margin: 40px 0;
 }
@@ -48,3 +42,15 @@ body {
 .pointer {
 	cursor: pointer;
 }
+
+@media ( min-width : 800px) {
+	.container {
+		max-width: 1200px;
+	}
+}
+
+@media ( max-width : 800px) {
+	body {
+		padding-top: 20px;
+	}
+} 
