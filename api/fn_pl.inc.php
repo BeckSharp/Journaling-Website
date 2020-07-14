@@ -213,6 +213,63 @@ FORM;
     return $form;
 }
 
+function renderFormChangeUsername() {
+    $method = appFormMethod();
+    $action = "app_edit_username.php";
+
+    $form = <<<FORM
+<div class="row details">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">Change your username here:</h2>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" method="{$method}" action="{$action}">
+                <fieldset>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="username">Current Username</label>
+                    <div class="col-md-4">
+                        <input id="username" name="username" type="password" 
+                        placeholder="Enter your current username here" class="form-control input-md" required>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="newUsername">New Username</label>
+                    <div class="col-md-4">
+                        <input id="newUsername" name="newUsername" type="password" 
+                        placeholder="Enter your new username here" class="form-control input-md" required>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="confirmationUsername">Confirmation Username</label>
+                    <div class="col-md-4">
+                        <input id="confirmationUsername" name="confirmationUsername" type="password" 
+                        placeholder="Confirm your new username here" class="form-control input-md" required>
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-4">
+                        <button id="form-sub" name="form-sub" type="submit" class="btn btn-primary">Change</button>
+                    </div>
+                </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+FORM;
+    return $form;
+}
+
 function renderFormChangePassword() {
     $method = appFormMethod();
     $action = "app_edit_password.php";

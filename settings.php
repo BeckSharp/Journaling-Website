@@ -7,9 +7,15 @@ function createPage() {
     //RETRIEVING DATA FROM URL
     $errorPassword = $_GET["pwordInvalid"] ?? "";
     $errorConfirmation = $_GET["confirmationInvalid"] ?? "";
+    $errorPasswordEmpty = $_GET["pwordEmpty"] ?? "";
     $errorDate = $_GET["dateError"] ?? "";
+    $errorUnameInvalid = $_GET["usernameInvalid"] ?? "";
+    $errorUnameConfirmation = $_GET["usernameConfirmationInvalid"] ?? "";
+    $errorUnameEmpty = $_GET["usernameEmpty"] ?? "";
+
     $passwordSuccess = $_GET["pwordChanged"] ?? "";
     $dateSuccess = $_GET["dateRemoved"] ?? "";
+
 
     //LOADING JOURNAL ENTRIES AND DECRYPTING THEIR DATE
     $key = appDecryptSessionData($_SESSION["username"]);
@@ -18,13 +24,15 @@ function createPage() {
 
     //SETTING PAGE CONTENT
     $successMessages = createSuccessMessages($passwordSuccess, $dateSuccess);
-    $errorMessages = createErrorMessages($errorPassword, $errorConfirmation, $errorDate);
+    $errorMessages = createErrorMessages($errorPassword, $errorConfirmation, $errorDate, $errorPasswordEmpty, $errorUnameInvalid, $errorUnameConfirmation, $errorUnameEmpty);
+    $usernameForm = renderFormChangeUsername();
     $passwordForm = renderFormChangePassword();
     $deletionForm = renderFormDeleteJournalEntry($entries);
 
     $content = <<<PAGE
 {$successMessages}
 {$errorMessages}
+{$usernameForm}
 {$passwordForm}
 {$deletionForm}
 PAGE;
@@ -32,11 +40,15 @@ PAGE;
 }
 
 //FUNCTION TO RETURN HTML ERROR MESSAGES IF REQUIRED
-function createErrorMessages($errorPassword, $errorConfirmation, $errorDate) {
+function createErrorMessages($errorPassword, $errorConfirmation, $errorDate, $errorPasswordEmpty, $errorUnameInvalid, $errorUnameConfirmation, $errorUnameEmpty) {
     $messages = "";
     if ($errorPassword == "true") { $messages .= file_get_contents("data\static\settings\password_invalid_error.html"); }
     if ($errorConfirmation == "true") { $messages .= file_get_contents("data\static\settings\password_confirmation_error.html"); }
+    if ($errorPasswordEmpty == "true") { $messages .= file_get_contents("data\static\settings\password_empty_error.html"); }
     if ($errorDate == "true") { $messages .= file_get_contents("data\static\settings\date_invalid_error.html"); }
+    if ($errorUnameInvalid == "true") { $messages .= file_get_contents("data\static\settings\username_invalid_error.html"); }
+    if ($errorUnameConfirmation == "true") { $messages .= file_get_contents("data\static\settings\username_confirmation_error.html"); }
+    if ($errorUnameEmpty == "true") { $messages .= file_get_contents("data\static\settings\username_empty_error.html"); }
     return $messages;
 }
 

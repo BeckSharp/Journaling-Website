@@ -6,9 +6,10 @@ include("api/api.inc.php");
 function createPage() {
     $errorData = $_GET["invalid"] ?? "";
     $signUpSuccess = $_GET["registered"] ?? "";
+    $usernameChangedSuccess = $_GET["unameChanged"] ?? "";
 
     $errorMessages = createErrorMessages($errorData);
-    $successMessages = createSuccessMessages($signUpSuccess);
+    $successMessages = createSuccessMessages($signUpSuccess, $usernameChangedSuccess);
     $form = renderFormLogIn($errorData, $signUpSuccess);
 
     $content = <<<PAGE
@@ -26,9 +27,11 @@ function createErrorMessages($errorData) {
 }
 
 //FUNCTION TO RETURN HTML SUCCESS MESSAGES IF REQUIRED
-function createSuccessMessages($signUpSuccess) {
-    if ($signUpSuccess != "true") { return ""; }
-    return file_get_contents("data\static\signUp\sign_up_success.html");
+function createSuccessMessages($signUpSuccess, $usernameChangedSuccess) {
+    $messages = "";
+    if ($signUpSuccess == "true") { $messages .= file_get_contents("data\static\signUp\sign_up_success.html"); }
+    if ($usernameChangedSuccess == "true") { $messages .= file_get_contents("data\static\logIn\username_change_success.html"); }
+    return $messages;
 }
 
 //BUSINESS LOGIC
