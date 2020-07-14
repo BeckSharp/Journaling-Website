@@ -28,6 +28,7 @@ To maximise the impact the website has on you, use it daily.
 * Users can view their journal entries upon logging in.
 * Users can add journal entries to their journal.
 * Users can change their password.
+* Users can change their username.
 * Users can delete entries.
 
 #### Security Features:
