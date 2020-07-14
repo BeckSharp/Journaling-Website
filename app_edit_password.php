@@ -40,6 +40,7 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
 function isDataValid($oldPassword, $newPassword, $confirmationPassword) {
     if (!isPasswordValid($oldPassword)) { return false; }
     if (!isNewPasswordConfirmed($newPassword, $confirmationPassword)) { return false; }
+    if (!isDataNotEmpty($oldPassword, $newPassword, $confirmationPassword)) { return false;}
     return true;
 }
 
@@ -53,6 +54,13 @@ function isNewPasswordConfirmed($password, $confirmation) {
     return appStringsMatch($password, $confirmation);
 }
 
+function isDataNotEmpty($oldPassword, $newPassword, $confirmationPassword) {
+    if (empty($oldPassword)) { return false; }
+    if (empty($newPassword)) { return false; }
+    if (empty($confirmationPassword)) { return false; }
+    return true;
+}
+
 //FUNCTION TO CREATE URL WITH ERROR MESSAGES
 function createErrorMessageURL($oldPassword, $newPassword, $confirmationPassword) {
     $url = "settings.php";
@@ -63,7 +71,11 @@ function createErrorMessageURL($oldPassword, $newPassword, $confirmationPassword
     }
     if (!isNewPasswordConfirmed($newPassword, $confirmationPassword)) { 
         if ($errorCount > 0) { $url .= "&confirmationInvalid=true"; }
-        if ($errorCount == 0) { $url .= "?confirmationInvalid=true"; }
+        if ($errorCount == 0) { $url .= "?confirmationInvalid=true"; $errorCount++;}
+    }
+    if (!isDataNotEmpty($oldPassword, $newPassword, $confirmationPassword)) { 
+        if ($errorCount > 0) { $url .= "&pwordEmpty=true"; }
+        if ($errorCount == 0) { $url .= "?pwordEmpty=true"; }
     }
     return $url;
 }
