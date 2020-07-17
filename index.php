@@ -10,8 +10,12 @@ function createPage() {
     $successCodes = $_GET["successCodes"] ?? "";
     $successMessage = renderSuccessMessageCodes($successCodes);
 
+    $errorCodes = $_GET["errorCodes"] ?? "";
+    $errorMessages = renderErrorMessageCodes($errorCodes);
+
     $content = <<<PAGE
 {$successMessage}
+{$errorMessages}
 {$journalOutput}
 PAGE;
     return $content;
@@ -19,7 +23,7 @@ PAGE;
 
 //FUNCTION TO RETURN HTML CODE BASED OFF OF THE INPUT OF AN ARRAY OF OBJECTS
 function createJournalOutput($journalData) {
-    if (count($journalData) == 0) { return file_get_contents("data/static/index/index_error_no_data.html"); }
+    if (count($journalData) == 0) { return file_get_contents("data\static\\errorCodes\d.no_journals.html"); }
     $key = appDecryptSessionData($_SESSION["username"]);
     $journalData = appDecryptJournalEntries($journalData, $key);
     return renderJournalAccordian($journalData);
