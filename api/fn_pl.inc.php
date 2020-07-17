@@ -331,7 +331,7 @@ function renderFormDeleteJournalEntry($journalData) {
     $content = "";
 
     if (count($journalData) == 0) { 
-        $content = file_get_contents("data\static\settings\\form_delete_journal_data_error.html"); 
+        $content = file_get_contents("data\static\\errorCodes\\n.date_error.html"); 
     } else {
         $options = renderJournalDateOptions($journalData);
         $method = appFormMethod();
@@ -441,4 +441,34 @@ function renderJournalEntryData(BLLJournalEntry $entry, $count) {
 </div>
 DATA;
     return $dataRender;
+}
+
+//FUNCTIONS FOR RENDERING ERROR & SUCCESS MESSAGES
+function renderErrorMessageCodes($errorCodes) {
+    $messages = "";
+    $url = "data\static\\errorCodes\\";
+    $codes = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n"];
+    $files = ["a.sign_up_empty.html", "b.sign_up_unconfirmed.html", "c.log_in_invalid.html",
+              "d.no_journals.html", "e.journal_empty.html", "f.journal_date.html",
+              "g.username_empty.html", "h.username_unconfirmed.html", "i.username_invalid.html",
+              "j.password_empty.html", "k.password_unconfirmed.html", "l.password_invalid.html",
+              "m.date_invalid.html", "n.date_error.html"];
+
+    for ($i = 0; $i < count($codes); $i++) {
+        if (strpos($errorCodes, $codes[$i]) !== false) { $messages .= file_get_contents($url . $files[$i]); }
+    }
+    return $messages;
+}
+
+function renderSuccessMessageCodes($successCodes) {
+    $messages = "";
+    $url = "data\static\successCodes\\";
+    $codes = ["a", "b", "c", "d", "e"];
+    $files = ["a.signed_up.html", "b.entry_added.html", "c.entry_deleted.html", 
+              "d.username_changed.html", "e.password_changed.html"];
+
+    for ($i = 0; $i < count($codes); $i++) {
+        if (strpos($successCodes, $codes[$i]) !== false) { $messages .= file_get_contents($url . $files[$i]); }
+    }
+    return $messages;
 }

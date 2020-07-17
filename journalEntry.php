@@ -4,10 +4,9 @@ include("api/api.inc.php");
 
 //PAGE GENERATION LOGIC
 function createPage() {
-    $errorEmpty = $_GET["empty"] ?? "";
-    $errorDate = $_GET["date"] ?? "";
+    $errorCodes = $_GET["errorCodes"] ?? "";
+    $errorMessages = renderErrorMessageCodes($errorCodes);
 
-    $errorMessages = createErrorMessages($errorEmpty, $errorDate);
     $form = renderFormJournalEntry();
 
     $content = <<<PAGE
@@ -15,14 +14,6 @@ function createPage() {
 {$form}
 PAGE;
     return $content;
-}
-
-//FUNCTION TO RETURN HTML ERROR MESSAGES IF REQUIRED
-function createErrorMessages($errorEmpty, $errorDate) {
-    $messages = "";
-    if ($errorEmpty == "true") {$messages .= file_get_contents("data\static\journal\journal_entry_error_empty.html"); }
-    if ($errorDate == "true") {$messages .= file_get_contents("data\static\journal\journal_entry_error_date.html"); }
-    return $messages;
 }
 
 //BUSINESS LOGIC

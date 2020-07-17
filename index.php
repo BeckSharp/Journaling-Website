@@ -4,12 +4,11 @@ include("api/api.inc.php");
 
 //PAGE GENERATION LOGIC
 function createPage() {
-
     $journalData = jsonLoadAllJournalEntries();
     $journalOutput = createJournalOutput($journalData);
 
-    $entryAdded = $_GET["entryAdded"] ?? "";
-    $successMessage = createSuccessMessage($entryAdded);
+    $successCodes = $_GET["successCodes"] ?? "";
+    $successMessage = renderSuccessMessageCodes($successCodes);
 
     $content = <<<PAGE
 {$successMessage}
@@ -24,12 +23,6 @@ function createJournalOutput($journalData) {
     $key = appDecryptSessionData($_SESSION["username"]);
     $journalData = appDecryptJournalEntries($journalData, $key);
     return renderJournalAccordian($journalData);
-}
-
-//FUNCTION TO RETURN A HTML SUCCESS MESSAGE IF REQUIRED
-function createSuccessMessage($entryAdded) {
-    if ($entryAdded != "true") { return "";}
-    return file_get_contents("data/static/index/index_journal_entry_success.html");
 }
 
 //BUSINESS LOGIC

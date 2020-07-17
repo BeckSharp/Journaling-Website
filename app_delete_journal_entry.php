@@ -17,10 +17,10 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
         //WRITE DATA TO JSON & REDIRECT USER WITH SUCCESS MESSAGE
         $saveData = appWriteJsonData($journalData);
         file_put_contents("data/json/entries.json", $saveData);
-        appRedirect("settings.php?dateRemoved=true");
+        appRedirect("settings.php?successCodes=c");
     } else {
          //REDIRECT TO settings.php WITH ERROR MESSAGE
-        appRedirect("settings.php?dateError=true");
+        appRedirect("settings.php?errorCodes=m");
     }
 } else {
     appRedirect("app_error.php");

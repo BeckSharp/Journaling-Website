@@ -4,10 +4,9 @@ include("api/api.inc.php");
 
 //PAGE GENERATION LOGIC
 function createPage() {
-    $errorEmpty = $_GET["empty"] ?? "";
-    $errorUnconfirmed = $_GET["unconfirmed"] ?? "";
+    $errorCodes = $_GET["errorCodes"] ?? "";
+    $errorMessages = renderErrorMessageCodes($errorCodes);
 
-    $errorMessages = createErrorMessages($errorEmpty, $errorUnconfirmed);
     $form = renderFormSignUp();
 
     $content = <<<PAGE
@@ -15,14 +14,6 @@ function createPage() {
 {$form}
 PAGE;
     return $content;
-}
-
-//FUNCTION TO RETURN HTML ERROR MESSAGES IF REQUIRED
-function createErrorMessages($errorEmpty, $errorUnconfirmed) {
-    $messages = "";
-    if ($errorEmpty == "true") { $messages .= file_get_contents("data\static\signUp\sign_up_error_empty.html"); }
-    if ($errorUnconfirmed == "true") { $messages .= file_get_contents("data\static\signUp\sign_up_error_unconfirmed.html"); }
-    return $messages;
 }
 
 //BUSINESS LOGIC

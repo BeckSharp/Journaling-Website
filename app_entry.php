@@ -22,7 +22,7 @@ if (appFormMethodIsPost() && !appSessionIsSet()) {
         appRedirect("index.php");
     } else {
         //REDIRECT TO logIn.php WITH ERROR MESSAGE
-        appRedirect("logIn.php?invalid=true");
+        appRedirect("logIn.php?errorCodes=c");
     }
 } else {
     //REDIRECT USER TO ERROR PAGE

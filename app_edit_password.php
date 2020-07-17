@@ -26,7 +26,7 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
         file_put_contents("data/json/profile.json", $saveData);
 
         //REDIRECT USER TO settings.php WITH SUCCESS MESSAGE
-        appRedirect("settings.php?pwordChanged=true");
+        appRedirect("settings.php?successCodes=e");
     } else {
         //REDIRECT TO settings.php WITH ERROR MESSAGES
         $url = createErrorMessageURL($oldPassword, $newPassword, $confirmationPassword);
@@ -63,19 +63,9 @@ function isDataNotEmpty($oldPassword, $newPassword, $confirmationPassword) {
 
 //FUNCTION TO CREATE URL WITH ERROR MESSAGES
 function createErrorMessageURL($oldPassword, $newPassword, $confirmationPassword) {
-    $url = "settings.php";
-    $errorCount = 0;
-    if (!isPasswordValid($oldPassword)) { 
-        $url .= "?pwordInvalid=true"; 
-        $errorCount++;
-    }
-    if (!isNewPasswordConfirmed($newPassword, $confirmationPassword)) { 
-        if ($errorCount > 0) { $url .= "&confirmationInvalid=true"; }
-        if ($errorCount == 0) { $url .= "?confirmationInvalid=true"; $errorCount++;}
-    }
-    if (!isDataNotEmpty($oldPassword, $newPassword, $confirmationPassword)) { 
-        if ($errorCount > 0) { $url .= "&pwordEmpty=true"; }
-        if ($errorCount == 0) { $url .= "?pwordEmpty=true"; }
-    }
+    $url = "settings.php?errorCodes=";
+    if (!isPasswordValid($oldPassword)) { $url .= "l"; }
+    if (!isNewPasswordConfirmed($newPassword, $confirmationPassword)) { $url .= "k"; }
+    if (!isDataNotEmpty($oldPassword, $newPassword, $confirmationPassword)) { $url .= "j"; }
     return $url;
 }

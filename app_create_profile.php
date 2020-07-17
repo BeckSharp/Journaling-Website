@@ -28,7 +28,7 @@ if (appFormMethodIsPost() && !appProfileRegisteredCheck()) {
         file_put_contents("data/json/profile.json", $saveData);
 
         //REDIRECT USER TO logIn.php
-        appRedirect("logIn.php?registered=true");
+        appRedirect("logIn.php?successCodes=a");
     } else {
         //REDIRECT TO signUp.php WITH ERROR MESSAGES
         $url = createErrorMessageURL($username, $password, $confirmation);
@@ -59,15 +59,8 @@ function isPasswordConfirmed($password, $confirmation) {
 
 //FUNCTION TO CREATE URL WITH ERROR MESSAGES
 function createErrorMessageURL($username, $password, $confirmation) {
-    $url = "signUp.php";
-    $errorCount = 0;
-    if (!isDataNotEmpty($username, $password, $confirmation)) { 
-        $url .= "?empty=true"; 
-        $errorCount++;
-    }
-    if (!isPasswordConfirmed($password, $confirmation)) { 
-        if ($errorCount > 0) { $url .= "&unconfirmed=true"; }
-        if ($errorCount == 0) { $url .= "?unconfirmed=true"; }
-    }
+    $url = "signUp.php?errorCodes=";
+    if (!isDataNotEmpty($username, $password, $confirmation)) { $url .= "a"; }
+    if (!isPasswordConfirmed($password, $confirmation)) { $url .= "b"; }
     return $url;
 }

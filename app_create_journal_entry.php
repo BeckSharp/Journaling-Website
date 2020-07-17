@@ -38,7 +38,7 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
         file_put_contents("data/json/entries.json", $saveData);
 
         //REDIRECT USER WITH SUCCESS MESSAGE
-        appRedirect("index.php?entryAdded=true");
+        appRedirect("index.php?successCodes=b");
     }
     else {
         //REDIRECT USER WITH ERROR MESSAGE
@@ -94,15 +94,8 @@ function isDateTaken($date) {
 
 //FUNCTION TO CREATE URL WITH ERROR MESSAGES
 function createErrorMessageURL(BLLJournalEntry $entry) {
-    $url = "journalEntry.php";
-    $errorCount = 0;
-    if (!isDataNotEmpty($entry)) {
-        $url .= "?empty=true"; 
-        $errorCount++;
-    }
-    if (!isDateValid($entry->date) || isDateTaken($entry->date)) {
-        if ($errorCount > 0) { $url .= "&date=true"; }
-        if ($errorCount == 0) { $url .= "?date=true"; }
-    }
+    $url = "journalEntry.php?errorCodes=";
+    if (!isDataNotEmpty($entry)) { $url .= "e"; }
+    if (!isDateValid($entry->date) || isDateTaken($entry->date)) { $url .= "f"; }
     return $url;
 }

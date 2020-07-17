@@ -37,7 +37,7 @@ if (appFormMethodIsPost() && appSessionIsSet()) {
         file_put_contents("data/json/entries.json", $journalSaveData);
 
         //REDIRECTING USER
-        appRedirect("logIn.php?unameChanged=true");
+        appRedirect("logIn.php?successCodes=d");
     } else {
         //REDIRECT TO settings.php WITH ERROR MESSAGES
         $url = createErrorMessageURL($current, $new, $confirmation);
@@ -75,19 +75,9 @@ function isDataNotEmpty($oldUsername, $newUsername, $confirmation) {
 
 //FUNCTION TO CREATE URL WITH ERROR MESSAGES
 function createErrorMessageURL($oldUsername, $newUsername, $confirmation) {
-    $url = "settings.php";
-    $errorCount = 0;
-    if (!isUsernameValid($oldUsername)) { 
-        $url .= "?usernameInvalid=true"; 
-        $errorCount++;
-    }
-    if (!isNewUsernameConfirmed($newUsername, $confirmation)) { 
-        if ($errorCount > 0) { $url .= "&usernameConfirmationInvalid=true"; }
-        if ($errorCount == 0) { $url .= "?usernameConfirmationInvalid=true"; $errorCount++; }
-    }
-    if (!isDataNotEmpty($oldUsername, $newUsername, $confirmation)) {
-        if ($errorCount > 0) { $url .= "&usernameEmpty=true"; }
-        if ($errorCount == 0) { $url .= "?usernameEmpty=true"; }
-    }
+    $url = "settings.php?errorCodes=";
+    if (!isUsernameValid($oldUsername)) { $url .= "i"; }
+    if (!isNewUsernameConfirmed($newUsername, $confirmation)) { $url .= "h"; }
+    if (!isDataNotEmpty($oldUsername, $newUsername, $confirmation)) { $url .= "g"; }
     return $url;
 }
